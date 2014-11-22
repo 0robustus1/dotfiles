@@ -1,0 +1,52 @@
+[alias]
+  last = cat-file commit HEAD
+  file = log --name-only --format=oneline
+  stat = status
+  logm = log --format=medium --abbrev-commit --stat --date=relative
+  bunch = log --oneline --graph --decorate --all
+  bunche = log --color --pretty=format:'%h %d %s%n%an - %ai (%ar)' --abbrev-commit --graph --decorate --all
+  safe-pull = pull --ff-only
+  msafely = merge --ff-only
+  date-blame = log --pretty=format:'%ad%x09%an%x09%s'
+  cdiff = diff --cached
+  co = checkout
+  c = commit
+  ca = commit --amend
+  list-branch-files = diff --name-only staging...HEAD
+  to-origin = reset --hard @{u}
+  to-head = reset --hard @
+  ; delete-tag = push origin :refs/tags/show
+[color]
+  ui = true
+  status = auto
+  branch = auto
+  diff = auto
+[include]
+  path=.gitconfig_local
+[push]
+  default = upstream
+[user]
+  name = "Tim Reddehase"
+  email = robustus@rightsrestricted.com
+; signing key for robustus@rightsrestricted.com
+; use DD3412FD for tredd@informatik.uni-bremen.de
+  signingkey = 8C402438
+[init]
+  templatedir = ~/.gitconfs/template_symlinks
+[merge]
+  defaultToUpstream = true
+  tool = vimdiff
+[diff]
+  tool = vimdiff
+  algorithm = patience
+[core]
+  autocrlf = input
+  excludesfile = /Users/robustus/.gitignore_global
+[mergetool "mvimdiff"]
+  cmd = "mvimdiff -f $BASE $LOCAL $REMOTE $MERGED"
+  trustExitCode = true
+[difftool "mvimdiff"]
+  cmd = mvim -f -d \"$LOCAL\" \"$REMOTE\"
+[status]
+  branch = 1
+  short = 1
