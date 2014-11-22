@@ -1,0 +1,4 @@
+# Argumente sind ein gemeinsamer Commit, also z.b. 2f73167 und zwei Branches. 
+print $(git log $1..$2 --name-only --pretty=oneline | egrep -v '^[a-f0-9]{40} ' | sort | uniq) \
+  $(git log $1..$3 --name-only --pretty=oneline | egrep -v '^[a-f0-9]{40} ' | sort | uniq) \
+  | sort | uniq -d

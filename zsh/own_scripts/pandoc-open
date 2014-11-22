@@ -1,0 +1,3 @@
+pandoccable_file=$1
+tmp_file="/tmp/$(basename $1)-$(date +'%s').html"
+pandoc "$pandoccable_file" > "$tmp_file"  && open "$tmp_file"
