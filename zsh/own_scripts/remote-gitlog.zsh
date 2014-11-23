@@ -1,7 +1,5 @@
 #! /usr/bin/env zsh
 
-# grep -P "ARGV=sascha\s+SOC=git-upload-pack\s+'realized.git'" /home/git/.gitolite/logs/gitolite-2014-08.log | cut -f1 | sort -r
-
 rr_retrieve_gitolite_log_data() {
 
   server=$1
