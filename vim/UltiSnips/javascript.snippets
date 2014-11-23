@@ -1,0 +1,25 @@
+snippet f "function(args) {}" sw
+function(${1:args}) {
+  ${0://body}
+}$2
+endsnippet
+
+snippet if "if (cond) {}" sw
+if (${1:cond}) {
+  ${2://then}
+}$0
+endsnippet
+
+snippet el "else {}" sw
+else {
+  ${1://else}
+}$0
+endsnippet
+
+snippet ifelse "if (cond) {} else {}" sw
+if (${1:cond}) {
+  ${2://then}
+} else {
+  ${3://else}
+}$0
+endsnippet

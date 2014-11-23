@@ -1,0 +1,55 @@
+snippet b "\begin{..." sw
+\begin{$1}
+	$0
+\end{$1}
+endsnippet
+
+snippet itemize "\begin{itemize} ..." sw
+\begin{itemize}
+	\item${1:[${2:prefix}]} $0
+\end{itemize}
+endsnippet
+
+snippet enumerate "\begin{enumerate} ..." sw
+\begin{enumerate}
+	\item${1:[${2:prefix}]} $0
+\end{enumerate}
+endsnippet
+
+snippet item "\item" sw
+\item${1:[${2:prefix}]} $0
+endsnippet
+
+snippet bf "\textbf{"
+\textbf{$1}$0
+endsnippet
+
+snippet it "\textit{"
+\textit{$1}$0
+endsnippet
+
+snippet em "\textit{"
+\textit{$1}$0
+endsnippet
+
+snippet tt "\texttt{"
+\texttt{$1}$0
+endsnippet
+
+snippet sec "section" sw
+\section{$1}$0
+endsnippet
+
+snippet ssec "subsection" sw
+\subsection{$1}$0
+endsnippet
+
+snippet sssec "subsubsection" sw
+\subsubsection{$1}$0
+endsnippet
+
+snippet f "\begin{frame}..." sw
+\begin{frame}
+	\frametitle{$1}$0
+\end{frame}
+endsnippet

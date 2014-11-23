@@ -1,0 +1,33 @@
+snippet ifelse "if <boolean> ... else ... end"
+if ${1:expression}
+  ${2:# do something}
+else
+  ${3:# else do}
+end
+endsnippet
+
+snippet "def" "def <method>..." r
+def ${1:method_name}${2:(${3:*args})}
+  ${0:# body}
+end
+endsnippet
+
+snippet "(?<!de)f" "lambda" r
+->(${1:*args}) { ${2:body} }
+endsnippet
+
+snippet "mod" "module <name>..." r
+module ${1:ModuleName}
+	${0:#body}
+end
+endsnippet
+
+snippet "class" "class <name>..." r
+class ${1:ClassName}${2: < ${3:ClassName}}
+	${0:#body}
+end
+endsnippet
+
+snippet "r" "require 'lib'"
+require '${1:lib}'${0}
+endsnippet
