@@ -351,8 +351,10 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.jar,*.class,*.dependencies
 " Preventing Lines which are too
 " long, by warning me.
 " set columns=80
-" highlight OverLength ctermbg=red ctermfg=white
-" match OverLength /\%81v.\+/
+augroup line_too_long_group
+  autocmd BufEnter * highlight LineTooLong cterm=bold
+  autocmd BufEnter * match LineTooLong /\%81v.*/
+augroup END
 " tmux copying on mac os x
 " set clipboard=unnamed
 
