@@ -1,0 +1,49 @@
+color   attachment  color61 color232
+color   signature   color63 color232
+
+
+
+color   status      color235 color214
+
+###################
+# Navigation menu #
+###################
+
+# Normal front-color
+color   normal      color254 color232
+# normal current-cursor-line color
+color   indicator   color232 color214
+# element in conversation/thread (tree-element)
+color   tree        color215 color232
+# Info-Bar / Messages
+color   message     color196 color232
+
+##############
+# in Message #
+##############
+
+# Headers
+color   header      color203 color232 "^(From|Subject|cc|date|To|X-Spam-Level|User-Agent|X-Mailer):"
+
+# specific parts of body
+########################
+
+# Hyperrefs (Links)
+color   body        color208 color232 "(http|https|ftp|news|telnet|finger|irc)://[^ \">\t\r\n]*"
+# E-Mails (Mail-To)
+color   body        color220 color232 "mailto:[-a-z_0-9.]+@[-a-z_0-9.]+"
+
+color   error       color231 color196
+
+color   markers     color37 color232
+
+color   index       color196 color232 ~D
+color   index       color196 color232 ~F
+
+color   index       color49 color232 ~T
+
+color   tilde       color63 color232
+color   body        color37 color232 "[;:=][-][)/(|]"
+color   quoted      color130 color232
+color   quoted1     color25 color232
+color   quoted2     color207 color232

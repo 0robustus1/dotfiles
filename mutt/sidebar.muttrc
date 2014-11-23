@@ -1,0 +1,20 @@
+set sidebar_delim   = '│'
+set sidebar_visible = yes
+set sidebar_width   = 32
+# If commented use the ordering specified by mailboxes
+# set sidebar_sort = yes
+set sidebar_folderindent = yes
+# set sidebar_indentstr = "↪"
+# Shorten the path if necessary, is usally unreadable
+set sidebar_shortpath = yes
+set sidebar_format = "%B %> (%N/%S)"
+color sidebar_new color221 color233
+
+## Sidebar Navigation ##
+########################
+
+# \C is the control-key
+bind index,pager \cj   sidebar-next
+bind index,pager \ck     sidebar-prev
+bind index,pager \Ce  sidebar-open
+
