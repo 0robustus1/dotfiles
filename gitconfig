@@ -1,20 +1,42 @@
 [alias]
-  last = cat-file commit HEAD
-  file = log --name-only --format=oneline
-  stat = status
-  logm = log --format=medium --abbrev-commit --stat --date=relative
-  bunch = log --oneline --graph --decorate --all
-  bunche = log --color --pretty=format:'%h %d %s%n%an - %ai (%ar)' --abbrev-commit --graph --decorate --all
-  safe-pull = pull --ff-only
-  msafely = merge --ff-only
-  date-blame = log --pretty=format:'%ad%x09%an%x09%s'
-  cdiff = diff --cached
-  co = checkout
+# abbreviations
   c = commit
   ca = commit --amend
-  list-branch-files = diff --name-only staging...HEAD
-  to-origin = reset --hard @{u}
+  co = checkout
+  l = log
+  m = merge
+  ma = merge --abort
+  mf = merge --ff-only
+  ms = merge --ff-only
+  p = pull
+  pf = pull --ff-only
+  pr = pull --rebase=true
+  res = reset
+  res-h = reset --hard
+  r = rebase
+  ra = rebase --abort
+  rc = rebase --continue
+  ri = rebase --interactive
+  s = status
+# alias longer commands
+  bunch = log --oneline --graph --decorate --all
+  cdiff = diff --cached
+  file = log --name-only --format=oneline
+  last = cat-file commit HEAD
+  logm = log --format=medium --abbrev-commit --stat --date=relative
+  safe-pull = pull --ff-only
   to-head = reset --hard @
+  to-origin = reset --hard @{u}
+  to-parent = reset --hard @^
+  to-grand-parent = reset --hard @~2
+  dirty-ignore = update-index --assume-unchanged
+# complex commands
+  bunche = log --color --pretty=format:'%h %d %s%n%an - %ai (%ar)' --abbrev-commit --graph --decorate --all
+  date-blame = log --pretty=format:'%ad%x09%an%x09%s'
+  reedit-commit = ! ~/srv/dotfiles/git/reedit-commit.sh
+  edit-commit-files = !git diff-tree --no-commit-id --name-only -r HEAD | xargs -o $EDITOR
+  latest-branches = !git reflog | gawk 'match($0, /checkout: moving from ([[:graph:]]+)/, matches) { if( !x[matches[1]]++ ) print matches[1] }' | head -n 10
+  list-branch-files = diff --name-only staging...HEAD
   ; delete-tag = push origin :refs/tags/show
 [color]
   ui = true
