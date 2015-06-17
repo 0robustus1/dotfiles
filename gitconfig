@@ -39,10 +39,10 @@
   list-branch-files = diff --name-only staging...HEAD
   ; delete-tag = push origin :refs/tags/show
 [color]
-  ui = true
+  ui = auto
   status = auto
   branch = auto
-  diff = auto
+  interactive = auto
 [include]
   path=.gitconfig_local
 [push]
