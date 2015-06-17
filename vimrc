@@ -104,10 +104,10 @@ filetype plugin indent on
 " # View Settings #
 " #################
 
-set history=50		" keep 50 lines of command line history
-set ruler		" show the cursor position all the time
-set showcmd		" display incomplete commands
-"set incsearch		" do incremental searching
+set history=50 " keep 50 lines of command line history
+set ruler " show the cursor position all the time
+set showcmd " display incomplete commands
+"set incsearch " do incremental searching
 "Some settings from Steve Loshs vimrc.
 "Needs looking through
 set scrolloff=3 " number of lines which are to be above/below the cursor
