@@ -240,12 +240,13 @@ set encoding=utf-8
 
 " Setting filetype correctly
 autocmd BufRead,BufNewFile *.sieve set filetype=sieve
-autocmd BufRead,BufNewFile *.kd set filetype=markdown
+autocmd BufRead,BufNewFile *.kd set filetype=mkd
 autocmd BufRead,BufNewFile *.thor set filetype=ruby
 autocmd BufRead,BufNewFile Guardfile set filetype=ruby
 autocmd BufRead,BufNewFile Vagrantfile set filetype=ruby
 autocmd BufNewFile,BufRead *.pde set filetype=arduino
 autocmd BufRead,BufNewFile *.ino set filetype=arduino
+autocmd BufRead,BufNewFile *.abnf set filetype=abnf
 
 autocmd FileType rust set softtabstop=2 tabstop=2 shiftwidth=2
 
@@ -289,7 +290,7 @@ endfunction
 
 " german umlauts, technically not abbreviations
 let g:umlaut_mappings = [ ['"a', 'ä'], ['"o', 'ö'], ['"u', 'ü'], ['"A', 'Ä'], ['"O', 'Ö'], ['"U', 'Ü'] ]
-let g:file_types = ['markdown', 'tex', 'text', 'mail', 'gitcommit']
+let g:file_types = ['mkd', 'tex', 'text', 'mail', 'gitcommit']
 
 call ImplementUmlauts()
 
