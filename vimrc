@@ -131,6 +131,9 @@ set linebreak
 " set showbreak=↪
 set showbreak=↳
 set breakindent
+" Saving the options is problematic when loading the session with regards to
+" syntax highlighting, and probably other stuff
+set sessionoptions-=options
 
 if has('gui_running')
   " set cmdheight=2
