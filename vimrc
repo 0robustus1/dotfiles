@@ -194,6 +194,9 @@ set splitbelow
 au BufRead,BufNewFile *.handlebars,*.hbs set ft=html syntax=handlebars
 au BufRead,BufNewFile *.rake,*.cap set ft=ruby
 au BufRead,BufNewFile *.muttrc set ft=muttrc
+" Crude solution for jekyll YAML-Frontmatter:
+" http://www.codeography.com/2010/02/20/making-vim-play-nice-with-jekylls-yaml-front-matter.html
+autocmd BufNewFile,BufRead index.slim,about.markdown,*/_drafts/*.markdown,*/_layouts/*.slim,*/_posts/*.markdown syntax match Comment /\%^---\_.\{-}---$/
 
 " To enforce a maximum textwidth of 78
 " augroup vimrcEx
