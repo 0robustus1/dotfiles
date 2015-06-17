@@ -127,7 +127,10 @@ set hlsearch " highlight when searching
 " highlight Pmenu ctermbg=238 gui=bold
 " nice linebreaks on soft wrap
 set formatoptions+=l
-set lbr
+set linebreak
+" set showbreak=↪
+set showbreak=↳
+set breakindent
 
 if has('gui_running')
   " set cmdheight=2
@@ -377,7 +380,7 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.jar,*.class,*.dependencies
 
 " Preventing Lines which are too
 " long, by warning me.
-" set columns=80
+set columns=80
 augroup line_too_long_group
   autocmd BufEnter * highlight LineTooLong cterm=bold
   autocmd BufEnter * match LineTooLong /\%81v.*/
