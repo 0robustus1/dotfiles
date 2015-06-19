@@ -250,50 +250,6 @@ autocmd BufRead,BufNewFile *.abnf set filetype=abnf
 
 autocmd FileType rust set softtabstop=2 tabstop=2 shiftwidth=2
 
-function! RemoveIMappingIfExists(mapping)
-  try
-    execute 'iunmap' a:mapping
-  catch /E31/
-  endtry
-endfunction
-
-function! RemoveUmlautsOtherwise(mappings)
-  for pair in a:mappings
-    execute 'autocmd' 'FileType,BufEnter,BufLeave' '*' 'call' "RemoveIMappingIfExists('". pair[0] ."')"
-  endfor
-endfunction
-
-function! SetUmlautMappings(filetype)
-  for [map_from, map_to]  in g:umlaut_mappings
-    call SetUmlautMapping(a:filetype, map_from, map_to)
-  endfor
-endfunction
-
-function! SetUmlautMapping(filetype, map, mapped)
-  let current_filetype = &filetype
-  if current_filetype == a:filetype
-    execute 'inoremap' a:map a:mapped
-  endif
-endfunction
-
-command! -nargs=1 SetUmlautMappings call SetUmlautMappings(<f-args>)
-
-function! ImplementUmlauts()
-  augroup umlauts
-    call RemoveUmlautsOtherwise(g:umlaut_mappings)
-    for file_type in g:file_types
-      execute 'autocmd' 'FileType' file_type 'SetUmlautMappings' file_type
-      execute 'autocmd' 'BufEnter,BufLeave' '*' 'SetUmlautMappings' file_type
-    endfor
-  augroup end
-endfunction
-
-" german umlauts, technically not abbreviations
-let g:umlaut_mappings = [ ['"a', 'ä'], ['"o', 'ö'], ['"u', 'ü'], ['"A', 'Ä'], ['"O', 'Ö'], ['"U', 'Ü'] ]
-let g:file_types = ['mkd', 'tex', 'text', 'mail', 'gitcommit']
-
-call ImplementUmlauts()
-
 " ##########
 " Mappings #
 " ##########
@@ -431,12 +387,13 @@ set linebreak
 " set foldmethod=syntax
 " set foldlevelstart=5
 
-" ##########
-" Gimmicks #
-" ##########
+" ################################
+" Functions and related Mappings #
+" ################################
 "
 
 source ~/.vim/arbitrary-functions.vim
+source ~/.vim/plugin-like-functions.vim
 
 " ##################
 " Special Mappings #
@@ -517,104 +474,10 @@ noremap <F12> :GitGutterToggle<CR>
 " Allow looking up manpages with :Man
 runtime ftplugin/man.vim
 
-" function! MarkInsideParentheses()
-"   normal %
-"   normal mo
-"   normal %
-"   normal mi
-"   normal %
-" endfunction
-
-" hi InsideParentheses term=italic ctermfg=black ctermbg=white
-" match InsideParentheses /\%>'i\_.*\%<'o/
-" nnoremap <silent> <leader>i :call MarkInsideParentheses()<cr>
-
-let g:base_branch = "staging"
-
-function! OpenAndWipeTmpBuffer(buffer_name)
-  let win_number = bufwinnr(a:buffer_name)
-  if win_number == -1
-    execute "split" . " " .  a:buffer_name
-  else
-    execute win_number . "wincmd w"
-  endif
-
-  normal! ggdG
-  setlocal buftype=nofile
-endfunction
-
-function! OpenBranchFileListBuffer()
-  let range = g:base_branch ."...HEAD"
-  let branch_file_list = system("git diff --name-only " . range)
-
-  call OpenAndWipeTmpBuffer("__git_branch_file_list__")
-
-  call append(0, split(branch_file_list, '\v\n'))
-
-  normal! gg
-endfunction
-
-nnoremap <silent> <leader>f :call OpenBranchFileListBuffer()<cr>
-
-
 " Deactivate 'clearing uses the current background color', with
 " background color referring to the background color that was being
 " set by the terminal emulator.'
 set t_ut=
-
-" Move window to different tab
-" ===================================================================
-" taken from http://vim.wikia.com/wiki/Move_current_window_between_tabs
-
-function MoveToPrevTab()
-  "there is only one window
-  if tabpagenr('$') == 1 && winnr('$') == 1
-    return
-  endif
-  "preparing new window
-  let l:tab_nr = tabpagenr('$')
-  let l:cur_buf = bufnr('%')
-  if tabpagenr() != 1
-    close!
-    if l:tab_nr == tabpagenr('$')
-      tabprev
-    endif
-    sp
-  else
-    close!
-    exe "0tabnew"
-  endif
-  "opening current buffer in new window
-  exe "b".l:cur_buf
-endfunc
-
-function MoveToNextTab()
-  "there is only one window
-  if tabpagenr('$') == 1 && winnr('$') == 1
-    return
-  endif
-  "preparing new window
-  let l:tab_nr = tabpagenr('$')
-  let l:cur_buf = bufnr('%')
-  if tabpagenr() < tab_nr
-    close!
-    if l:tab_nr == tabpagenr('$')
-      tabnext
-    endif
-    sp
-  else
-    close!
-    tabnew
-  endif
-  "opening current buffer in new window
-  exe "b".l:cur_buf
-endfunc
-
-nnoremap <leader>> :call MoveToNextTab()<CR>
-nnoremap <leader>< :call MoveToPrevTab()<CR>
-
-" :E: Move window to different tab
-" ===================================================================
 
 " === Plugin related settings ===
 " ===============================
