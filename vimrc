@@ -1,8 +1,10 @@
-" ##################################################
-" This .vimrc Configuration File is based on Bram  #
-" Moolenaars example-version.                      #
-" It has been altered to my needs, by robustus(me).#
-" ##################################################
+" ###########################################################################
+" In the past this .vimrc was based on Bram Moolenaars original             #
+" example-version. However after a couple of years of changes, alterations, #
+" deletions and additions it doesn't resemble this example file anymore. So #
+" now this is basically my vimrc, sans the more 'private' settings.         #
+"                   robustus AT rightsrestricted DOT com                    #
+" ###########################################################################
 
 " explicitely set the path to ruby
 let g:ruby_path = '/usr/local/var/rbenv/shims/'
