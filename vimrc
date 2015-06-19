@@ -338,7 +338,9 @@ command! -register SafeCtrlP call SafeCtrlP()
 let g:ctrlp_cmd = 'SafeCtrlP'
 
  " MacOSX/Linux
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.jar,*.class,*.dependencies
+set wildignore+=*.so,*.swp,*.zip,*.jar,*.class,*.dependencies,*.beam
+set wildignore+=*/ebin/*
+set wildignore+=*/tmp/*
 
 " #########################
 " Stupid Stuff Prevention #
