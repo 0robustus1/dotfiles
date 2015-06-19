@@ -26,7 +26,6 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 " Unused
-" Plugin 'delimitMate.vim'
 " Plugin 'UltiSnips'
 " Plugin 'othree/html5.vim'
 " Plugin 'wting/rust.vim'
@@ -56,6 +55,7 @@ Plugin 'parkr/vim-jekyll'
 Plugin 'derekwyatt/vim-scala'
 
 " Behaviour-Plugins
+Plugin 'Raimondi/delimitMate'
 Plugin '0robustus1/vim-borderless'
 Plugin 'HTML-AutoCloseTag'
 Plugin 'Indent-Guides'
@@ -187,6 +187,10 @@ set splitright
 " opening horizontal splits to the bottom
 set splitbelow
 
+let g:delimitMate_autoclose=1
+let delimitMate_autoclose=1
+let b:delimitMate_autoclose=1
+
 " #################################
 " # File-Type and Syntax Settings #
 " #################################
@@ -194,6 +198,7 @@ set splitbelow
 au BufRead,BufNewFile *.handlebars,*.hbs set ft=html syntax=handlebars
 au BufRead,BufNewFile *.rake,*.cap set ft=ruby
 au BufRead,BufNewFile *.muttrc set ft=muttrc
+au FileType clojure let b:delimitMate_quotes = "\""
 " Crude solution for jekyll YAML-Frontmatter:
 " http://www.codeography.com/2010/02/20/making-vim-play-nice-with-jekylls-yaml-front-matter.html
 autocmd BufNewFile,BufRead index.slim,about.markdown,*/_drafts/*.markdown,*/_layouts/*.slim,*/_posts/*.markdown syntax match Comment /\%^---\_.\{-}---$/
