@@ -310,18 +310,12 @@ source ~/.vim/abbreviations.vim
 " Plugin-dependent settings #
 " ###########################
 
-" LaTeX-Suite #
-" #############
+" LaTeX-Box #
+" ###########
 
-" For working german 'umlauts' on
-" american layout.
-let g:Tex_SmartKeyQuote = 0
-
-let g:tex_flavor='latex'
-set grepprg=grep\ -nH\ $*
-
-let g:Tex_Folding=0 " I don't like folding.
-set iskeyword+=:
+let g:LatexBox_viewer="open -a Skim"
+" let g:LatexBox_autojump=1
+au BufRead,BufNewFile *.tex let b:main_tex_file=getcwd()."/document.tex"
 
 " Ctrl-P #
 " ########
