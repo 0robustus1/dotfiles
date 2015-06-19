@@ -348,9 +348,7 @@ set ttimeoutlen=50
 " ###############
 " Abbreviations #
 " ###############
-
-" Shift and A are to close...
-cnoreabbrev ack Ack
+source ~/.vim/abbreviations.vim
 
 " ###########################
 " Plugin-dependent settings #
