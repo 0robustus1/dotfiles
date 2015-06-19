@@ -26,7 +26,6 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 " Unused
-" Plugin 'UltiSnips'
 " Plugin 'othree/html5.vim'
 " Plugin 'wting/rust.vim'
 " Plugin 'faith/vim-go'
