@@ -194,6 +194,11 @@ let b:delimitMate_autoclose=1
 " # File-Type and Syntax Settings #
 " #################################
 
+" autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
+" autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+" autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+" autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+
 au BufRead,BufNewFile *.handlebars,*.hbs set ft=html syntax=handlebars
 au BufRead,BufNewFile *.rake,*.cap set ft=ruby
 au BufRead,BufNewFile *.muttrc set ft=muttrc
