@@ -646,3 +646,22 @@ nnoremap <leader>< :call MoveToPrevTab()<CR>
 
 " :E: Move window to different tab
 " ===================================================================
+
+" === Plugin related settings ===
+" ===============================
+
+" = parkr/jekyll-vim =
+let g:jekyll_post_extension = '.markdown'
+" let g:jekyll_post_filetype = 'liquid'
+" let g:jekyll_post_template =  [
+"   \ '---',
+"   \ 'layout: post',
+"   \ 'title: "JEKYLL_TITLE"',
+"   \ 'date: "JEKYLL_DATE"',
+"   \ '---',
+"   \ '']
+" let g:jekyll_site_dir = '_site'
+" let g:jekyll_build_command = 'jekyll --no-auto --no-server'
+" =
+
+" ===============================
