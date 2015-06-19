@@ -313,9 +313,16 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+
+" jumps to next/previous item in quickfix-list
+nnoremap <Left> :cprev<cr>
+nnoremap <Right> :cnext<cr>
 " deactivate highlight after search
 nnoremap <F9> :noh<return><esc>
 nnoremap <leader>w <C-w>v<C-w>l
+" For vim-Task Commands.
+" inoremap <silent> <buffer> <F4> <ESC>:call Toggle_task_status()<CR>i
+" nnoremap <silent> <buffer> <F4> :call Toggle_task_status()<CR>
 " For buffer-movement
 noremap <F11> :bprev<CR>
 noremap <F12> :bnext<CR>
@@ -326,6 +333,10 @@ imap <F10> <C-R>=strftime("%Y-%m-%d %H:%M:%S%z")<CR>
 nmap <F5> :TlistToggle<CR>
 " Use Ex-Mode Mapping (<Shift-Q>) for default macro execution
 nnoremap Q @q
+" Per default would insert last-inserted text and return to normal mode
+" but i hit it by accident, so i'll deactivate it.
+" By the way, it is triggered by pressing Control and Spacebar.
+imap <C-@> <Nop>
 
 " Sometimes it takes to long for
 " the leader key to be processed.
@@ -406,6 +417,8 @@ nnoremap Y y$
 nnoremap <leader>. %
 " open the alternate file (last file i edited) with ease
 nnoremap <leader>a :e #<cr>
+
+nnoremap <space> :make<cr>
 
 " layout stuff #
 " ##############
@@ -502,6 +515,13 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsSnippetDirectories=["UltiSnips"]
 let g:UltiSnipsEditSplit="vertical"
 
+" tslime.vim #
+" ############
+
+" vmap <C-c><C-c> <Plug>SendSelectionToTmux
+" nmap <C-c><C-c> <Plug>NormalModeSendToTmux
+" nmap <C-c>r <Plug>SetTmuxVars
+
 " vim-rspec #
 " ###########
 
@@ -534,6 +554,9 @@ if executable('ag')
   command! -nargs=+ -complete=file -bar Agg silent! grep! <args>|cc1|redraw!
   noreabbrev ag Ag
 endif
+
+" bind K to grep word under cursor
+nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 nnoremap <leader>b :Gblame<return>
 
