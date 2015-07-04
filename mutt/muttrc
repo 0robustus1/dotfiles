@@ -122,10 +122,10 @@ macro pager \Cu "|urlview<enter>" "call urlview to open links"
 bind index <f11> sort-mailbox
 bind index <f10> sort-reverse
 bind index n previous-new-then-unread
-macro index  <f1> "<limit>~d <7d<enter>" "show messages from last seven days"
-macro index  <esc><f1> "<limit>all<enter>" "undo limiting"
 bind index N next-unread-mailbox
 bind index \Cn toggle-new
+# macro index  <f1> "<limit>~d <7d<enter>" "show messages from last seven days"
+# macro index  <esc><f1> "<limit>all<enter>" "undo limiting"
 
 # Postponing messages #
 #######################
@@ -166,14 +166,25 @@ bind editor ^T    complete
 # Message Filtering #
 #####################
 
+# default
+# macro index .d "l((~N|~O|~F)!~D)|(~d<3m)\n"
+# everything that is unread/flagged or less than a week old
 macro index .i "l((~N|~O|~F)!~D)|(~d<1w!~Q)\n"
+# everything that is New
 macro index .n "l~N\n"
+# everything that is unread
 macro index .o "l(~N|~O)\n"
+# just everything
 macro index .a "l~A\n"
+# everything that is less than a day old (Today)
 macro index .t "l~d<1d\n"
+# everything between one and two days old (Yesterday)
 macro index .y "l~d<2d ~d>1d\n"
 
-folder-hook . push '.i'
+# display all 'interesting' mails and collapse all threads
+# folder-hook . push ".i<collapse-all>\n"
+# Default limit
+folder-hook . push "ggl~d<2m<enter>"
 
 #######
 # GPG #
