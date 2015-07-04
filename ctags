@@ -1,0 +1,9 @@
+--langmap=Lisp:+.clj
+--extra=+q
+--recurse=yes
+--exclude=.bundle
+--exclude=.git
+--exclude=log
+--exclude=public/static/
+--exclude=tmp
+--exclude=*min.js
