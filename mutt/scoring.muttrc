@@ -1,0 +1,35 @@
+# start out with a basic score for every mail
+# base score determined in such a way that maximum penalty yields a value of
+# zero
+score ~A 10
+
+# Add 5 if it is actually directly addressed to me
+score ~p +5
+
+# Signed messages get a small benefit
+score ~g 3
+
+# Encrypted messages are usually important
+score ~G 50
+
+# Flagged is quite important
+score ~F 50
+
+# New is very important
+score ~N 150
+
+# 'Important' People
+
+# 'lesser but still important' People
+
+# Adding huge penalties for shitty things
+# score "~s press.*release" -50
+
+#### ---- ####
+
+# sorting through penalties
+score ~d>1d -2
+score ~d>3d -4
+score ~d>7d -6
+score ~d>14d -8
+score ~d>1m -10
