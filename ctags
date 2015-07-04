@@ -16,3 +16,4 @@
 --exclude=public/static/
 --exclude=tmp
 --exclude=*min.js
+--exclude=.gemset
