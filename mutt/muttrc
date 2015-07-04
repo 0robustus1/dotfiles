@@ -195,6 +195,8 @@ set crypt_replysignencrypted=yes
 set crypt_verify_sig=yes
 # engmail does not tag messages correct per default
 message-hook '!(~g|~G) ~b"^-----BEGIN\ PGP\ (SIGNED\ )?MESSAGE"' "exec check-traditional-pgp"
+# timeout for pgp passphrase, default: 300
+set pgp_timeout=3600
 
 #####################
 # Display Overrides #
