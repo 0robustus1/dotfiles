@@ -223,3 +223,11 @@ set sig_on_top = yes # Quote text after my text
 ##########################
 
 macro index S "<enter-command>unset wait_key<enter><shell-escape>mutt-notmuch-py ~/.Mail/temporary/search<enter><change-folder-readonly>~/.Mail/temporary/search<enter>" "search mail (using notmuch)"
+
+
+# Startup commands... #
+#######################
+
+# Do not display sidebar on start
+# toggle sidebar_visible
+set sidebar_visible = no
