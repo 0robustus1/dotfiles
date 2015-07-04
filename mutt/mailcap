@@ -1,4 +1,4 @@
-text/plain; ~/.mutt/view_attachment.sh %s "-" '/usr/local/opt/macvim/MacVim.app'
+text/plain; /usr/bin/less
 
 # MS Word documents
 application/msword; ~/.mutt/view_attachment.sh %s "-" '/Applications/TextEdit.app'
