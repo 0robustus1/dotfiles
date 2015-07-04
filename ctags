@@ -1,4 +1,13 @@
 --langmap=Lisp:+.clj
+--regex-ruby=/^[[:space:]]*scope :([[:alpha:]_][[:alnum:]_!?-]+).*$/\1/F,singleton-method,singleton method: ActiveRecord scope/
+--regex-ruby=/^[[:space:]]*attr_accessible :([[:alpha:]_][[:alnum:]_!?-]+).*$/\1/f,method,attribute method/
+--regex-ruby=/^[[:space:]]*attr_accessible .*, :([[:alpha:]_][[:alnum:]_!?-]+).*$/\1/f,method,attribute method/
+--regex-ruby=/^[[:space:]]*attr_accessor :([[:alpha:]_][[:alnum:]_!?-]+).*$/\1/f,method,attribute method/
+--regex-ruby=/^[[:space:]]*attr_accessor .*, :([[:alpha:]_][[:alnum:]_!?-]+).*$/\1/f,method,attribute method/
+--regex-ruby=/^[[:space:]]*attr_reader :([[:alpha:]_][[:alnum:]_!?-]+).*$/\1/f,method,attribute method (ro)/
+--regex-ruby=/^[[:space:]]*attr_reader .*, :([[:alpha:]_][[:alnum:]_!?-]+).*$/\1/f,method,attribute method (ro)/
+--regex-ruby=/^[[:space:]]*attr_reader :([[:alpha:]_][[:alnum:]_!?-]+).*$/\1 =/f,method,attribute method (wo)/
+--regex-ruby=/^[[:space:]]*attr_reader .*, :([[:alpha:]_][[:alnum:]_!?-]+).*$/\1 =/f,method,attribute method (wo)/
 --extra=+q
 --recurse=yes
 --exclude=.bundle
