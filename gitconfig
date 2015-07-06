@@ -64,7 +64,7 @@
   algorithm = patience
 [core]
   autocrlf = input
-  excludesfile = /Users/robustus/.gitignore_global
+  excludesfile = ~/.gitignore_global
 [mergetool "mvimdiff"]
   cmd = "mvimdiff -f $BASE $LOCAL $REMOTE $MERGED"
   trustExitCode = true
