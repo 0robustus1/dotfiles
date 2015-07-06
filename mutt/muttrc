@@ -7,6 +7,7 @@ set certificate_file = ~/.mutt/certificates  # where to store certs
 set mailcap_path     = ~/.mutt/mailcap       # entries for filetypes
 set tmpdir           = ~/.mutt/temp          # where to keep temp files
 #set signature        = ~/.mutt/sig           # my signature file
+set read_inc         = 5000                  # improve reading-speed of folders
 
 # Basic Options --------------------------------------
 set wait_key = no        # shut up, mutt
@@ -37,14 +38,19 @@ set ssl_verify_dates = no
 source ~/.mutt/sidebar.muttrc
 
 # Status Bar -----------------------------------------
-set status_chars  = " *%A"
-set status_format = "───[ Folder: %f ]───[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]───%>─%?p?( %p postponed )?───"
+# set status_chars  = " *%A"
+set status_chars  = "-!%A"
+# set status_format = "-%r-Mutt: %f [Msgs:%?M?%M/?%m%?n? New:%n?%?o? Old:%o?%?d? Del:%d?%?F? Flag:%F?%?t? Tag:%t?%?p? Post:%p?%?b? Inc:%b?%?l? %l?]---(%s/%S)-%>-(%P)---"
+set status_format = "──[%h]──[%r]─[%M/%m messages%?p?(%p postponed)?%?n?(%n new)?%?F?(%F flagged)?]───[ Folder: %f ]──%?d?(%d to delete)?%?t?(%t tagged)?──[%s/%S]─%>──%V──"
 
 # Header Options -------------------------------------
 ignore *                                # ignore all headers
 unignore from: to: cc: date: subject:   # show only these
 unhdr_order *                           # some distros order things by default
 hdr_order from: to: cc: date: subject:  # and in this order
+
+
+auto_view text/html
 
 # Account Settings -----------------------------------
 
@@ -58,12 +64,9 @@ source ~/.mutt/mailboxes.muttrc
 
 # Index View Options ---------------------------------
 set date_format = "%m/%d"
-set index_format = "[%Z]  %D  %-20.20F  %s"
-set sort = reverse-threads                         # like gmail
-set sort_aux = last-date-received  # like gmail
+# set index_format = "[%Z]  %D  %-20.20F  %s"
 set uncollapse_jump                     # don't collapse on an unread message
 unset collapse_unread
-set sort_re                                # thread based on regex
 set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
 
 # Index Key Bindings ---------------------------------
@@ -119,8 +122,10 @@ macro pager \Cu "|urlview<enter>" "call urlview to open links"
 bind index <f11> sort-mailbox
 bind index <f10> sort-reverse
 bind index n previous-new-then-unread
-macro index  <f1> "<limit>~d <7d<enter>" "show messages from last seven days"
-macro index  <esc><f1> "<limit>all<enter>" "undo limiting"
+bind index N next-unread-mailbox
+bind index \Cn toggle-new
+# macro index  <f1> "<limit>~d <7d<enter>" "show messages from last seven days"
+# macro index  <esc><f1> "<limit>all<enter>" "undo limiting"
 
 # Postponing messages #
 #######################
@@ -139,6 +144,17 @@ bind index p recall-message
 # source ~/.mutt/configs/mutt-colors-solarized-dark-256.muttrc
 source ~/.mutt/configs/robustus-theme.muttrc
 
+####################
+# Sorting/Ordering #
+####################
+
+source ~/.mutt/scoring.muttrc
+# set sort = reverse-threads # like gmail
+set sort=score
+set sort_aux = reverse-date-received
+# set sort_aux = last-date-received # like gmail
+set sort_re # thread based on regex
+
 # Mac OS X Addressbook Autocompletion #
 #######################################
 
@@ -150,14 +166,25 @@ bind editor ^T    complete
 # Message Filtering #
 #####################
 
+# default
+# macro index .d "l((~N|~O|~F)!~D)|(~d<3m)\n"
+# everything that is unread/flagged or less than a week old
 macro index .i "l((~N|~O|~F)!~D)|(~d<1w!~Q)\n"
+# everything that is New
 macro index .n "l~N\n"
+# everything that is unread
 macro index .o "l(~N|~O)\n"
+# just everything
 macro index .a "l~A\n"
+# everything that is less than a day old (Today)
 macro index .t "l~d<1d\n"
+# everything between one and two days old (Yesterday)
 macro index .y "l~d<2d ~d>1d\n"
 
-folder-hook . push '.i'
+# display all 'interesting' mails and collapse all threads
+# folder-hook . push ".i<collapse-all>\n"
+# Default limit
+folder-hook . push "ggl~d<2m<enter>"
 
 #######
 # GPG #
@@ -168,6 +195,8 @@ set crypt_replysignencrypted=yes
 set crypt_verify_sig=yes
 # engmail does not tag messages correct per default
 message-hook '!(~g|~G) ~b"^-----BEGIN\ PGP\ (SIGNED\ )?MESSAGE"' "exec check-traditional-pgp"
+# timeout for pgp passphrase, default: 300
+set pgp_timeout=3600
 
 #####################
 # Display Overrides #
@@ -175,7 +204,7 @@ message-hook '!(~g|~G) ~b"^-----BEGIN\ PGP\ (SIGNED\ )?MESSAGE"' "exec check-tra
 
 # set date_format="%a %b %d, %Y at %I:%M:%S%p %Z"
 # see http://www.mutt.org/doc/manual/manual-6.html#index_format for description
-set index_format="[%Z] %(%b %D %H:%M) %-22.22F|%?M?%03M&   ?| %s %> %y"
+set index_format="[%3N][%Z] %(%b %D %H:%M) %-22.22F|%?M?%03M&   ?| %s %> %y"
 
 ##########################
 # Mail Content Overrides #
@@ -194,3 +223,11 @@ set sig_on_top = yes # Quote text after my text
 ##########################
 
 macro index S "<enter-command>unset wait_key<enter><shell-escape>mutt-notmuch-py ~/.Mail/temporary/search<enter><change-folder-readonly>~/.Mail/temporary/search<enter>" "search mail (using notmuch)"
+
+
+# Startup commands... #
+#######################
+
+# Do not display sidebar on start
+# toggle sidebar_visible
+set sidebar_visible = no

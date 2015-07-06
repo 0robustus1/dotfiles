@@ -1,8 +1,10 @@
-" ##################################################
-" This .vimrc Configuration File is based on Bram  #
-" Moolenaars example-version.                      #
-" It has been altered to my needs, by robustus(me).#
-" ##################################################
+" ###########################################################################
+" In the past this .vimrc was based on Bram Moolenaars original             #
+" example-version. However after a couple of years of changes, alterations, #
+" deletions and additions it doesn't resemble this example file anymore. So #
+" now this is basically my vimrc, sans the more 'private' settings.         #
+"                   robustus AT rightsrestricted DOT com                    #
+" ###########################################################################
 
 " explicitely set the path to ruby
 let g:ruby_path = '/usr/local/var/rbenv/shims/'
@@ -24,50 +26,76 @@ call vundle#begin()
 " #########
 
 Plugin 'gmarik/Vundle.vim'
+
+" Unused
+" Plugin 'othree/html5.vim'
+" Plugin 'wting/rust.vim'
+" Plugin 'faith/vim-go'
+" Plugin 'kana/vim-fakeclip'
+" Plugin 'jacquesbh/vim-showmarks'
+" Plugin 'PeterRincker/vim-argumentative'
+
+" File-Type plugins
 Plugin 'tpope/vim-haml'
-Plugin 'Indent-Guides'
-Plugin 'tpope/vim-markdown'
-Plugin 'buftabs'
-Plugin 'commentary.vim'
-Plugin 'ctrlp.vim'
-Plugin 'cucumber.zip'
-Plugin 'tpope/vim-fugitive'
-Plugin 'rails.vim'
-Plugin 'surround.vim'
 Plugin 'vim-coffee-script'
-Plugin 'vim-task'
 Plugin 'xml.vim'
-Plugin 'LaTeX-Box'
 Plugin 'yaymukund/vim-rabl'
-Plugin 'UltiSnips'
-Plugin 'a.vim'
-Plugin '0robustus1/vim-borderless'
 Plugin 'Handlebars'
-Plugin 'tpope/vim-endwise'
-Plugin 'Tabular'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'tpope/vim-vinegar'
 Plugin '0robustus1/vim-tmux-conf'
-Plugin 'vim-scripts/taglist.vim'
-Plugin 'guns/vim-sexp'
-Plugin 'tpope/vim-sexp-mappings-for-regular-people'
-Plugin 'tpope/vim-fireplace'
-Plugin 'HTML-AutoCloseTag'
 Plugin 'mamut/vim-css-hex'
-Plugin 'vim-scripts/marvim'
 Plugin 'rizzatti/funcoo.vim'
-Plugin 'rizzatti/dash.vim'
-Plugin 'reedes/vim-colors-pencil'
-Plugin 'thoughtbot/vim-rspec'
-Plugin 'jgdavey/tslime.vim'
-Plugin 'PeterRincker/vim-argumentative'
 Plugin 'cespare/vim-toml'
 Plugin 'vim-erlang/vim-erlang-runtime'
 Plugin 'vim-erlang/vim-erlang-compiler'
 Plugin 'vim-erlang/vim-erlang-omnicomplete'
 Plugin 'vim-erlang/vim-erlang-tags'
 Plugin 'elixir-lang/vim-elixir'
+Plugin 'slim-template/vim-slim'
+Plugin 'vim-scripts/sieve.vim'
+Plugin 'parkr/vim-jekyll'
+Plugin 'derekwyatt/vim-scala'
 
+" Behaviour-Plugins
+Plugin 'Raimondi/delimitMate'
+Plugin '0robustus1/vim-borderless'
+Plugin 'HTML-AutoCloseTag'
+Plugin 'Indent-Guides'
+Plugin 'LaTeX-Box'
+Plugin 'SirVer/ultisnips'
+Plugin 'Tabular'
+Plugin 'a.vim'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'buftabs'
+Plugin 'commentary.vim'
+Plugin 'kien/ctrlp.vim'
+Plugin 'cucumber.zip'
+Plugin 'guns/vim-sexp'
+Plugin 'jgdavey/tslime.vim'
+Plugin 'rails.vim'
+Plugin 'rizzatti/dash.vim'
+Plugin 'surround.vim'
+Plugin 'thoughtbot/vim-rspec'
+Plugin 'tpope/vim-endwise'
+Plugin 'tpope/vim-fireplace'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-sexp-mappings-for-regular-people'
+Plugin 'tpope/vim-vinegar'
+Plugin 'vim-scripts/marvim'
+Plugin 'vim-scripts/taglist.vim'
+Plugin 'vim-task'
+
+" Mixed-Plugins
+Plugin 'wannesm/wmgraphviz.vim'
+Plugin 'rodjek/vim-puppet'
+
+" Color-Schemes
+Plugin 'reedes/vim-colors-pencil'
+Plugin 'mrkn/mrkn256.vim'
+Plugin 'romainl/flattened'
+Plugin 'farseer90718/flattr.vim'
+
+" Plugin 'tpope/vim-markdown'
+Plugin 'plasticboy/vim-markdown'
 call vundle#end()
 
 syntax on
@@ -77,10 +105,10 @@ filetype plugin indent on
 " # View Settings #
 " #################
 
-set history=50		" keep 50 lines of command line history
-set ruler		" show the cursor position all the time
-set showcmd		" display incomplete commands
-"set incsearch		" do incremental searching
+set history=50 " keep 50 lines of command line history
+set ruler " show the cursor position all the time
+set showcmd " display incomplete commands
+"set incsearch " do incremental searching
 "Some settings from Steve Loshs vimrc.
 "Needs looking through
 set scrolloff=3 " number of lines which are to be above/below the cursor
@@ -100,7 +128,13 @@ set hlsearch " highlight when searching
 " highlight Pmenu ctermbg=238 gui=bold
 " nice linebreaks on soft wrap
 set formatoptions+=l
-set lbr
+set linebreak
+" set showbreak=↪
+set showbreak=↳
+set breakindent
+" Saving the options is problematic when loading the session with regards to
+" syntax highlighting, and probably other stuff
+set sessionoptions-=options
 
 if has('gui_running')
   " set cmdheight=2
@@ -154,6 +188,10 @@ set splitright
 " opening horizontal splits to the bottom
 set splitbelow
 
+let g:delimitMate_autoclose=1
+let delimitMate_autoclose=1
+let b:delimitMate_autoclose=1
+
 " #################################
 " # File-Type and Syntax Settings #
 " #################################
@@ -161,6 +199,10 @@ set splitbelow
 au BufRead,BufNewFile *.handlebars,*.hbs set ft=html syntax=handlebars
 au BufRead,BufNewFile *.rake,*.cap set ft=ruby
 au BufRead,BufNewFile *.muttrc set ft=muttrc
+au FileType clojure let b:delimitMate_quotes = "\""
+" Crude solution for jekyll YAML-Frontmatter:
+" http://www.codeography.com/2010/02/20/making-vim-play-nice-with-jekylls-yaml-front-matter.html
+autocmd BufNewFile,BufRead index.slim,about.markdown,*/_drafts/*.markdown,*/_layouts/*.slim,*/_posts/*.markdown syntax match Comment /\%^---\_.\{-}---$/
 
 " To enforce a maximum textwidth of 78
 " augroup vimrcEx
@@ -187,7 +229,7 @@ set expandtab
 set tabstop=2
 set softtabstop=2
 set shiftwidth=2
-set smartindent
+" set smartindent
 
 " ##########
 " Spelling #
@@ -204,58 +246,15 @@ set encoding=utf-8
 
 " Setting filetype correctly
 autocmd BufRead,BufNewFile *.sieve set filetype=sieve
-autocmd BufRead,BufNewFile *.kd set filetype=markdown
+autocmd BufRead,BufNewFile *.kd set filetype=mkd
 autocmd BufRead,BufNewFile *.thor set filetype=ruby
 autocmd BufRead,BufNewFile Guardfile set filetype=ruby
 autocmd BufRead,BufNewFile Vagrantfile set filetype=ruby
 autocmd BufNewFile,BufRead *.pde set filetype=arduino
 autocmd BufRead,BufNewFile *.ino set filetype=arduino
+autocmd BufRead,BufNewFile *.abnf set filetype=abnf
 
 autocmd FileType rust set softtabstop=2 tabstop=2 shiftwidth=2
-
-function! RemoveIMappingIfExists(mapping)
-  try
-    execute 'iunmap' a:mapping
-  catch /E31/
-  endtry
-endfunction
-
-function! RemoveUmlautsOtherwise(mappings)
-  for pair in a:mappings
-    execute 'autocmd' 'FileType,BufEnter,BufLeave' '*' 'call' "RemoveIMappingIfExists('". pair[0] ."')"
-  endfor
-endfunction
-
-function! SetUmlautMappings(filetype)
-  for [map_from, map_to]  in g:umlaut_mappings
-    call SetUmlautMapping(a:filetype, map_from, map_to)
-  endfor
-endfunction
-
-function! SetUmlautMapping(filetype, map, mapped)
-  let current_filetype = &filetype
-  if current_filetype == a:filetype
-    execute 'inoremap' a:map a:mapped
-  endif
-endfunction
-
-command! -nargs=1 SetUmlautMappings call SetUmlautMappings(<f-args>)
-
-function! ImplementUmlauts()
-  augroup umlauts
-    call RemoveUmlautsOtherwise(g:umlaut_mappings)
-    for file_type in g:file_types
-      execute 'autocmd' 'FileType' file_type 'SetUmlautMappings' file_type
-      execute 'autocmd' 'BufEnter,BufLeave' '*' 'SetUmlautMappings' file_type
-    endfor
-  augroup end
-endfunction
-
-" german umlauts, technically not abbreviations
-let g:umlaut_mappings = [ ['"a', 'ä'], ['"o', 'ö'], ['"u', 'ü'], ['"A', 'Ä'], ['"O', 'Ö'], ['"U', 'Ü'] ]
-let g:file_types = ['markdown', 'tex', 'text', 'mail', 'gitcommit']
-
-call ImplementUmlauts()
 
 " ##########
 " Mappings #
@@ -276,9 +275,16 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+
+" jumps to next/previous item in quickfix-list
+nnoremap <Left> :cprev<cr>
+nnoremap <Right> :cnext<cr>
 " deactivate highlight after search
 nnoremap <F9> :noh<return><esc>
 nnoremap <leader>w <C-w>v<C-w>l
+" For vim-Task Commands.
+" inoremap <silent> <buffer> <F4> <ESC>:call Toggle_task_status()<CR>i
+" nnoremap <silent> <buffer> <F4> :call Toggle_task_status()<CR>
 " For buffer-movement
 noremap <F11> :bprev<CR>
 noremap <F12> :bnext<CR>
@@ -289,6 +295,10 @@ imap <F10> <C-R>=strftime("%Y-%m-%d %H:%M:%S%z")<CR>
 nmap <F5> :TlistToggle<CR>
 " Use Ex-Mode Mapping (<Shift-Q>) for default macro execution
 nnoremap Q @q
+" Per default would insert last-inserted text and return to normal mode
+" but i hit it by accident, so i'll deactivate it.
+" By the way, it is triggered by pressing Control and Spacebar.
+imap <C-@> <Nop>
 
 " Sometimes it takes to long for
 " the leader key to be processed.
@@ -300,26 +310,18 @@ set ttimeoutlen=50
 " ###############
 " Abbreviations #
 " ###############
-
-" Shift and A are to close...
-cnoreabbrev ack Ack
+source ~/.vim/abbreviations.vim
 
 " ###########################
 " Plugin-dependent settings #
 " ###########################
 
-" LaTeX-Suite #
-" #############
+" LaTeX-Box #
+" ###########
 
-" For working german 'umlauts' on
-" american layout.
-let g:Tex_SmartKeyQuote = 0
-
-let g:tex_flavor='latex'
-set grepprg=grep\ -nH\ $*
-
-let g:Tex_Folding=0 " I don't like folding.
-set iskeyword+=:
+let g:LatexBox_viewer="open -a Skim"
+" let g:LatexBox_autojump=1
+au BufRead,BufNewFile *.tex let b:main_tex_file=getcwd()."/document.tex"
 
 " Ctrl-P #
 " ########
@@ -342,7 +344,9 @@ command! -register SafeCtrlP call SafeCtrlP()
 let g:ctrlp_cmd = 'SafeCtrlP'
 
  " MacOSX/Linux
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.jar,*.class,*.dependencies
+set wildignore+=*.so,*.swp,*.zip,*.jar,*.class,*.dependencies,*.beam
+set wildignore+=*/ebin/*
+set wildignore+=*/tmp/*
 
 " #########################
 " Stupid Stuff Prevention #
@@ -350,7 +354,7 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.jar,*.class,*.dependencies
 
 " Preventing Lines which are too
 " long, by warning me.
-" set columns=80
+set columns=80
 augroup line_too_long_group
   autocmd BufEnter * highlight LineTooLong cterm=bold
   autocmd BufEnter * match LineTooLong /\%81v.*/
@@ -370,6 +374,8 @@ nnoremap <leader>. %
 " open the alternate file (last file i edited) with ease
 nnoremap <leader>a :e #<cr>
 
+nnoremap <space> :make<cr>
+
 " layout stuff #
 " ##############
 
@@ -383,64 +389,13 @@ set linebreak
 " set foldmethod=syntax
 " set foldlevelstart=5
 
-" ##########
-" Gimmicks #
-" ##########
+" ################################
+" Functions and related Mappings #
+" ################################
 "
-" Show syntax highlighting groups for word under cursor
-nmap <leader><leader>p :call <SID>SynStack()<CR>
-function! <SID>SynStack()
-  if !exists("*synstack")
-    return
-  endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunc
 
-function! GetSection()
-  let hits = []
-  execute 'normal! mo'
-  let success=search("\\w\*section", "b")
-  if success > 0
-    execute 'normal! ^'
-    s/\V{\(\.\+\)}/\=len(add(hits, submatch(1))) ? submatch(0) : ''/
-    " let reg = empty(a:reg) ? '+' : a:reg
-    let section = hits[0]
-    " execute 'let @'.reg.' = join(hits, "\n") . "\n"'
-  endif
-  execute 'normal! `o'
-  return section
-endfunction
-command! -register GetSection call GetSection()
-
-function! DetermineTops()
-  let tops = []
-  execute 'normal! mo'
-  execute 'normal! gg'
-  let match_s=search("^\\s\*##\\s")
-  while match_s > 0
-    execute 'normal! ^'
-    s/## \(.\+\)/\=len(add(tops, submatch(1))) ? submatch(0) : ''/
-    execute 'normal! j'
-    let match_s=search("\\s\*## ")
-  endwhile
-endfunction
-command! -register DetermineTops call DetermineTops()
-
-function! ToggleCursorLine()
-  if &cursorline
-    set nocursorline
-  else
-    set cursorline
-  end
-endfunction
-
-function! ToggleCursorColumn()
-  if &cursorcolumn
-    set nocursorcolumn
-  else
-    set cursorcolumn
-  end
-endfunction
+source ~/.vim/arbitrary-functions.vim
+source ~/.vim/plugin-like-functions.vim
 
 " ##################
 " Special Mappings #
@@ -465,6 +420,13 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsSnippetDirectories=["UltiSnips"]
 let g:UltiSnipsEditSplit="vertical"
 
+" tslime.vim #
+" ############
+
+" vmap <C-c><C-c> <Plug>SendSelectionToTmux
+" nmap <C-c><C-c> <Plug>NormalModeSendToTmux
+" nmap <C-c>r <Plug>SetTmuxVars
+
 " vim-rspec #
 " ###########
 
@@ -487,16 +449,19 @@ if executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
 
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  " let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 
   " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
+  " let g:ctrlp_use_caching = 0
   "
   " bind \ (backward slash) to grep shortcut
   command! -nargs=+ -complete=file -bar Ag silent! grep! "<args>"|cwindow|redraw!
   command! -nargs=+ -complete=file -bar Agg silent! grep! <args>|cc1|redraw!
   noreabbrev ag Ag
 endif
+
+" bind K to grep word under cursor
+nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 nnoremap <leader>b :Gblame<return>
 
@@ -511,101 +476,26 @@ noremap <F12> :GitGutterToggle<CR>
 " Allow looking up manpages with :Man
 runtime ftplugin/man.vim
 
-" function! MarkInsideParentheses()
-"   normal %
-"   normal mo
-"   normal %
-"   normal mi
-"   normal %
-" endfunction
-
-" hi InsideParentheses term=italic ctermfg=black ctermbg=white
-" match InsideParentheses /\%>'i\_.*\%<'o/
-" nnoremap <silent> <leader>i :call MarkInsideParentheses()<cr>
-
-let g:base_branch = "staging"
-
-function! OpenAndWipeTmpBuffer(buffer_name)
-  let win_number = bufwinnr(a:buffer_name)
-  if win_number == -1
-    execute "split" . " " .  a:buffer_name
-  else
-    execute win_number . "wincmd w"
-  endif
-
-  normal! ggdG
-  setlocal buftype=nofile
-endfunction
-
-function! OpenBranchFileListBuffer()
-  let range = g:base_branch ."...HEAD"
-  let branch_file_list = system("git diff --name-only " . range)
-
-  call OpenAndWipeTmpBuffer("__git_branch_file_list__")
-
-  call append(0, split(branch_file_list, '\v\n'))
-
-  normal! gg
-endfunction
-
-nnoremap <silent> <leader>f :call OpenBranchFileListBuffer()<cr>
-
-
 " Deactivate 'clearing uses the current background color', with
 " background color referring to the background color that was being
 " set by the terminal emulator.'
 set t_ut=
 
-" Move window to different tab
-" ===================================================================
-" taken from http://vim.wikia.com/wiki/Move_current_window_between_tabs
+" === Plugin related settings ===
+" ===============================
 
-function MoveToPrevTab()
-  "there is only one window
-  if tabpagenr('$') == 1 && winnr('$') == 1
-    return
-  endif
-  "preparing new window
-  let l:tab_nr = tabpagenr('$')
-  let l:cur_buf = bufnr('%')
-  if tabpagenr() != 1
-    close!
-    if l:tab_nr == tabpagenr('$')
-      tabprev
-    endif
-    sp
-  else
-    close!
-    exe "0tabnew"
-  endif
-  "opening current buffer in new window
-  exe "b".l:cur_buf
-endfunc
+" = parkr/jekyll-vim =
+let g:jekyll_post_extension = '.markdown'
+" let g:jekyll_post_filetype = 'liquid'
+" let g:jekyll_post_template =  [
+"   \ '---',
+"   \ 'layout: post',
+"   \ 'title: "JEKYLL_TITLE"',
+"   \ 'date: "JEKYLL_DATE"',
+"   \ '---',
+"   \ '']
+" let g:jekyll_site_dir = '_site'
+" let g:jekyll_build_command = 'jekyll --no-auto --no-server'
+" =
 
-function MoveToNextTab()
-  "there is only one window
-  if tabpagenr('$') == 1 && winnr('$') == 1
-    return
-  endif
-  "preparing new window
-  let l:tab_nr = tabpagenr('$')
-  let l:cur_buf = bufnr('%')
-  if tabpagenr() < tab_nr
-    close!
-    if l:tab_nr == tabpagenr('$')
-      tabnext
-    endif
-    sp
-  else
-    close!
-    tabnew
-  endif
-  "opening current buffer in new window
-  exe "b".l:cur_buf
-endfunc
-
-nnoremap <leader>> :call MoveToNextTab()<CR>
-nnoremap <leader>< :call MoveToPrevTab()<CR>
-
-" :E: Move window to different tab
-" ===================================================================
+" ===============================
