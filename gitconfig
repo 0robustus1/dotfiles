@@ -15,6 +15,7 @@
   res-h = reset --hard
   r = rebase
   ra = rebase --abort
+  rb = rebase -i master
   rc = rebase --continue
   ri = rebase --interactive
   s = status
