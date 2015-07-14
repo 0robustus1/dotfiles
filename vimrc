@@ -25,9 +25,11 @@ call vundle#begin()
 " Bundles #
 " #########
 
+" the base plugin, used to manage others
 Plugin 'gmarik/vundle'
 
-" Unused
+" Unused #
+" ########
 " Plugin 'othree/html5.vim'
 " Plugin 'wting/rust.vim'
 " Plugin 'faith/vim-go'
@@ -43,23 +45,38 @@ Plugin 'gmarik/vundle'
 " Plugin 'cucumber.zip'
 " Plugin 'thoughtbot/vim-rspec'
 
-" File-Type plugins
-Plugin 'tpope/vim-haml'
-Plugin 'vim-coffee-script'
-Plugin 'xml.vim'
-Plugin '0robustus1/vim-tmux-conf'
-Plugin 'mamut/vim-css-hex'
+" Library for usage in other plugins
 Plugin 'rizzatti/funcoo.vim'
+
+" File-Type plugins #
+" ###################
+"
+" Syntax Plugin for HAML - compiles to HTML
+Plugin 'tpope/vim-haml'
+" Syntax Plugin for Coffee Script - compiles to Javascript
+Plugin 'kchmck/vim-coffee-script' " Plugin 'vim-coffee-script'
+" Syntax Plugin for XML
+Plugin 'othree/xml.vim' " Plugin 'xml.vim'
+" Custom Syntax Plugin for the tmux config - use the official one instead
+Plugin '0robustus1/vim-tmux-conf'
+" Highlights CSS-Colorcodes with the color they represent
+Plugin 'mamut/vim-css-hex'
+" Erlang Plugins to interact with compiler, syntax, omnicomplete and ctags
 Plugin 'vim-erlang/vim-erlang-runtime'
 Plugin 'vim-erlang/vim-erlang-compiler'
 Plugin 'vim-erlang/vim-erlang-omnicomplete'
 Plugin 'vim-erlang/vim-erlang-tags'
+" Syntax Highlighting for Elixir
 Plugin 'elixir-lang/vim-elixir'
+" Syntax Highlighting for Slim - compiles to HTML
 Plugin 'slim-template/vim-slim'
+" Syntax Highlighting for Sieve-Scripts - used for E-Mail filtering
 Plugin 'vim-scripts/sieve.vim'
+" Plugin for Interaction with Jekyll-Blogs, building running, creating posts
 Plugin 'parkr/vim-jekyll'
 
-" Behaviour-Plugins
+" Behaviour-Plugins #
+" ###################
 Plugin 'Raimondi/delimitMate'
 Plugin '0robustus1/vim-borderless'
 Plugin 'Indent-Guides'
@@ -82,6 +99,8 @@ Plugin 'tpope/vim-vinegar'
 Plugin 'vim-scripts/marvim'
 Plugin 'vim-scripts/taglist.vim'
 Plugin 'vim-task'
+" Allows executing tasks asynchronously in a tmux pane
+Plugin 'tpope/vim-dispatch'
 
 " Mixed-Plugins
 Plugin 'wannesm/wmgraphviz.vim'
