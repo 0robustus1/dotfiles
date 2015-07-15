@@ -291,6 +291,16 @@ set encoding=utf-8
 " autocmd FileType markdown   setlocal spell spelllang=de,en
 
 
+" ##########
+" Quickfix #
+" ##########
+
+" support rspec reports
+set errorformat+=%f:%l\ %n\ %m
+" autocmd FileType rspec setlocal errorformat=%f:%l\ %n\ %m
+autocmd BufRead,BufNewFile *_spec.rb setlocal errorformat=%f:%l\ %n\ %m
+nnoremap <leader>r :silent! Dispatch rspec %<cr>
+
 " ################
 " Filetype Stuff #
 " ################
