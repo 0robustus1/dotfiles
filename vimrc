@@ -471,25 +471,6 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsSnippetDirectories=["UltiSnips"]
 let g:UltiSnipsEditSplit="vertical"
 
-" tslime.vim #
-" ############
-
-" vmap <C-c><C-c> <Plug>SendSelectionToTmux
-" nmap <C-c><C-c> <Plug>NormalModeSendToTmux
-" nmap <C-c>r <Plug>SetTmuxVars
-
-" vim-rspec #
-" ###########
-
-map <Leader>rt :call RunCurrentSpecFile()<CR>
-map <Leader>rn :call RunNearestSpec()<CR>
-map <Leader>rl :call RunLastSpec()<CR>
-map <Leader>ra :call RunAllSpecs()<CR>
-
-let g:rspec_command = 'call Send_to_Tmux("rspec {spec}\n")'
-" Only useful when not using terminal vim
-" let g:rspec_runner = "os_x_iterm"
-
 " ag for grep (and use in ctrlp) #
 " ################################
 
