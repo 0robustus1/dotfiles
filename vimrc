@@ -124,6 +124,10 @@ Plugin 'vim-scripts/taglist.vim'
 Plugin 'samsonw/vim-task' " Plugin 'vim-task'
 " Allows executing tasks asynchronously in a tmux pane
 Plugin 'tpope/vim-dispatch'
+" Allows <C-a> and <C-x> to increment/decrement dates
+Plugin 'tpope/vim-speeddating'
+" Allows . to also repeat some plugin usages
+Plugin 'tpope/vim-repeat'
 
 " Mixed-Plugins
 "
