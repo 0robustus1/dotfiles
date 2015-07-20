@@ -36,3 +36,4 @@ alias rebuild-ontohub='rake db:migrate:clean && redis-cli flushdb && rake db:see
 alias observed-iex='iex --erl "-run observer"'
 alias observed-erl='erl -run observer'
 alias header-curl='curl -sD - -o /dev/null'
+alias root-the-htop='sudo chmod u+s /usr/local/opt/htop-osx/bin/htop && sudo chown root:admin /usr/local/opt/htop-osx/bin/htop'
