@@ -128,6 +128,8 @@ Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-speeddating'
 " Allows . to also repeat some plugin usages
 Plugin 'tpope/vim-repeat'
+" Allow to take a look at the actual undo tree of vim
+Plugin 'sjl/gundo.vim'
 
 " Mixed-Plugins
 "
