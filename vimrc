@@ -301,7 +301,9 @@ set encoding=utf-8
 set errorformat+=%f:%l\ %n\ %m
 " autocmd FileType rspec setlocal errorformat=%f:%l\ %n\ %m
 autocmd BufRead,BufNewFile *_spec.rb setlocal errorformat=%f:%l\ %n\ %m
-nnoremap <leader>r :silent! Dispatch rspec %<cr>
+nnoremap <leader>rl :silent! Dispatch rspec %\:<c-r>=line(".")<cr><cr>
+nnoremap <leader>rf :silent! Dispatch rspec %<cr>
+nnoremap <leader>rs :silent! Dispatch rspec<cr>
 
 " ################
 " Filetype Stuff #
