@@ -7,7 +7,7 @@
   m = merge
   ma = merge --abort
   mf = merge --ff-only
-  ms = merge --ff-only
+  ms = merge --squash
   p = pull
   pf = pull --ff-only
   pr = pull --rebase=true
