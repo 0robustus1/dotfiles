@@ -506,6 +506,7 @@ endif
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 nnoremap <leader>b :Gblame<return>
+nnoremap <leader>B :Gbrowse <c-r>=expand("<cword>")<return><return>
 
 " speed-issues
 " set synmaxcol=800
