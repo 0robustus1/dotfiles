@@ -356,6 +356,7 @@ inoremap <leader>, <esc><<i
 " now both do the same thing when not in normalmode
 inoremap <F1> <ESC>
 vnoremap <F1> <ESC>
+nnoremap <F1> <ESC>
 " move splits around
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
