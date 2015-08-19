@@ -118,10 +118,11 @@ nnoremap <silent> <leader>i :call MarkInsideParentheses()<cr>
 
 let g:base_branch = "staging"
 
-function! OpenAndWipeTmpBuffer(buffer_name)
+function! OpenAndWipeTmpBuffer(buffer_name, ...)
   let win_number = bufwinnr(a:buffer_name)
+  let split_command = a:0 > 0 ? a:1 : "split"
   if win_number == -1
-    execute "split" . " " .  a:buffer_name
+    execute split_command . " " .  a:buffer_name
   else
     execute win_number . "wincmd w"
   endif
@@ -142,6 +143,22 @@ function! OpenBranchFileListBuffer()
 endfunction
 
 nnoremap <silent> <leader>f :call OpenBranchFileListBuffer()<cr>
+
+" Show stat of commit in git
+function! OpenCommitStatBuffer(commit_hash)
+  let output = system("git show --stat '" . a:commit_hash . "'")
+
+  call OpenAndWipeTmpBuffer("__git_show_stat__", "vsplit")
+
+  call append(0, split(output, '\v\n'))
+
+  normal! gg
+  silent normal! :w /dev/null<cr>
+endfunction
+
+command! -nargs=1 -bar CommitStat call OpenCommitStatBuffer("<args>")
+command! CommitStatHere call OpenCommitStatBuffer(expand("<cword>"))
+nnoremap <silent> <leader>s :CommitStatHere<cr>
 
 " Move window to different tab #
 " ##############################
