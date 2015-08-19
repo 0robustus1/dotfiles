@@ -434,6 +434,8 @@ let g:ctrlp_cmd = 'SafeCtrlP'
 set wildignore+=*.so,*.swp,*.zip,*.jar,*.class,*.dependencies,*.beam
 set wildignore+=*/ebin/*
 set wildignore+=*/tmp/*
+set wildignore+=*/Applications/*
+set wildignore+=*/Library/*
 
 " #########################
 " Stupid Stuff Prevention #
