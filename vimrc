@@ -97,7 +97,7 @@ Plugin 'vim-scripts/buftabs' " Plugin 'buftabs'
 " Easily toggle lines as comments, or not
 Plugin 'tpope/vim-commentary' " Plugin 'commentary.vim'
 " Allows project navigation with fuzzy-file-finding
-Plugin 'kien/ctrlp.vim'
+" Plugin 'kien/ctrlp.vim'
 " Mappings for working with S-Expressions - think lisp
 Plugin 'guns/vim-sexp'
 " Make the S-Expression mappings more human friendly
@@ -130,6 +130,27 @@ Plugin 'tpope/vim-speeddating'
 Plugin 'tpope/vim-repeat'
 " Allow to take a look at the actual undo tree of vim
 Plugin 'sjl/gundo.vim'
+" The probably mightiest fuzzy-finder
+Plugin 'Shougo/unite.vim'
+" Unite Plugin to use Ag
+" Plugin 'Slava/vim-unite-files-ag' " I believe i don't actually use it
+" Run and display/describe rake tasks easily
+" Plugin 'ujihisa/unite-rake' " doesn't seem to work
+" Use the tig git browser in vim
+Plugin 'Kocha/vim-unite-tig'
+" Tasklist in unite, manage your tasks
+Plugin 'junkblocker/unite-tasklist'
+" Dependency of unite-issue; allows vim to talk to webapis via curl/wget
+Plugin 'mattn/webapi-vim'
+" Dependency of unite-issue; open urls in browser
+Plugin 'tyru/open-browser.vim'
+" Unite-Integration with Issue-Systems (GitHub,JIRA)
+Plugin 'rafi/vim-unite-issue'
+" Tag support in unite
+Plugin 'tsukkee/unite-tag'
+" Unite the Rails, yeah!
+Plugin 'basyura/unite-rails'
+
 
 " Mixed-Plugins
 "
@@ -511,6 +532,23 @@ nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 nnoremap <leader>b :Gblame<return>
 nnoremap <leader>B :Gbrowse <c-r>=expand("<cword>")<return><return>
+
+" Settings to set unite.vim up the way i will like it
+" call unite#filters#matcher_default#use(['matcher_fuzzy'])
+call unite#filters#sorter_default#use(['sorter_length'])
+call unite#custom#source('file,file/new,buffer,file_rec,line', 'matchers', 'matcher_fuzzy')
+call unite#custom#source('file_rec', 'ignore_globs', split(&wildignore, ','))
+
+nnoremap <leader>f :Unite -buffer-name=search-file -start-insert file_rec<cr>
+nnoremap <c-p> :Unite -buffer-name=search-file -start-insert file_rec<cr>
+
+augroup unite_mappings
+  au FileType unite nmap <buffer> <c-k> <Plug>(unite_cursor_up)
+  au FileType unite nmap <buffer> <c-j> <Plug>(unite_cursor_down)
+  au FileType unite imap <buffer> <c-k> <Plug>(unite_select_previous_line)
+  au FileType unite imap <buffer> <c-j> <Plug>(unite_select_next_line)
+augroup END
+" nnoremap <C-k> :<C-u>Unite -buffer-name=search -start-insert line<cr>
 
 " speed-issues
 " set synmaxcol=800
