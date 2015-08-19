@@ -527,7 +527,6 @@ if executable('ag')
   " bind \ (backward slash) to grep shortcut
   command! -nargs=+ -complete=file -bar Ag silent! grep! "<args>"|cwindow|redraw!
   command! -nargs=+ -complete=file -bar Agg silent! grep! <args>|cc1|redraw!
-  noreabbrev ag Ag
 endif
 
 " bind K to grep word under cursor
