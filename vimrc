@@ -145,11 +145,12 @@ Plugin 'mattn/webapi-vim'
 " Dependency of unite-issue; open urls in browser
 Plugin 'tyru/open-browser.vim'
 " Unite-Integration with Issue-Systems (GitHub,JIRA)
-Plugin 'rafi/vim-unite-issue'
+" Plugin 'rafi/vim-unite-issue'
 " Tag support in unite
 Plugin 'tsukkee/unite-tag'
 " Unite the Rails, yeah!
 Plugin 'basyura/unite-rails'
+Plugin 'Slava/vim-unite-files-ag'
 
 
 " Mixed-Plugins
@@ -542,7 +543,8 @@ call unite#custom#source('file,file/new,buffer,file_rec,line', 'matchers', 'matc
 call unite#custom#source('file_rec', 'ignore_globs', split(&wildignore, ','))
 
 nnoremap <leader>f :Unite -buffer-name=search-file -start-insert file_rec<cr>
-nnoremap <c-p> :Unite -buffer-name=search-file -start-insert file_rec<cr>
+" nnoremap <c-p> :Unite -buffer-name=search-file -start-insert file_rec<cr>
+nnoremap <c-p> :Unite -buffer-name=search-file -start-insert files_ag<cr>
 
 augroup unite_mappings
   au FileType unite nmap <buffer> <c-k> <Plug>(unite_cursor_up)
