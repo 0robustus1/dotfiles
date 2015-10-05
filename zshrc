@@ -17,6 +17,7 @@ SAVEHIST=9000000
 setopt appendhistory autocd extendedglob notify
 #setopt no_share_history #unset shared history
 setopt SHARE_HISTORY #activate shared history
+unsetopt pushd_ignore_dups # ensure bash-like pushd behaviour
 unsetopt beep nomatch
 bindkey -v # vim-style bindings
 
