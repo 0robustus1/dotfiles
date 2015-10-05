@@ -74,6 +74,8 @@ Plugin 'slim-template/vim-slim'
 Plugin 'vim-scripts/sieve.vim'
 " Plugin for Interaction with Jekyll-Blogs, building running, creating posts
 Plugin 'parkr/vim-jekyll'
+" Well it is for CSV files
+Plugin 'chrisbra/csv.vim'
 
 " Behaviour-Plugins #
 " ###################
@@ -102,6 +104,8 @@ Plugin 'tpope/vim-commentary' " Plugin 'commentary.vim'
 Plugin 'guns/vim-sexp'
 " Make the S-Expression mappings more human friendly
 Plugin 'tpope/vim-sexp-mappings-for-regular-people'
+" More current ruby integration for vim
+Plugin 'vim-ruby/vim-ruby'
 " Rails integration for vim for power engineers
 Plugin 'tpope/vim-rails' " Plugin 'rails.vim'
 " Integration with the Dash (Mac OS X) App, to lookup offline documentation
@@ -151,6 +155,9 @@ Plugin 'tsukkee/unite-tag'
 " Unite the Rails, yeah!
 Plugin 'basyura/unite-rails'
 Plugin 'Slava/vim-unite-files-ag'
+" The power of custom textobjects (e.g. w is a textobj)
+Plugin 'kana/vim-textobj-user'
+Plugin 'nelstrom/vim-textobj-rubyblock'
 
 
 " Mixed-Plugins
@@ -173,6 +180,8 @@ call vundle#end()
 
 syntax on
 filetype plugin indent on
+" needed by 'nelstrom/vim-textobj-rubyblock'
+runtime macros/matchit.vim
 
 " #################
 " # View Settings #
