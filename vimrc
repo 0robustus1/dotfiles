@@ -330,12 +330,13 @@ set encoding=utf-8
 " ##########
 
 " support rspec reports
-set errorformat+=%f:%l\ %n\ %m
+" set errorformat+=%f:%l\ %n\ %m
 " autocmd FileType rspec setlocal errorformat=%f:%l\ %n\ %m
-autocmd BufRead,BufNewFile *_spec.rb setlocal errorformat=%f:%l\ %n\ %m
-nnoremap <leader>rl :silent! Dispatch -dir=<c-r>=getcwd()<cr> rspec %\:<c-r>=line(".")<cr><cr>
-nnoremap <leader>rf :silent! Dispatch -dir=<c-r>=getcwd()<cr> rspec %<cr>
-nnoremap <leader>rs :silent! Dispatch -dir=<c-r>=getcwd()<cr> rspec<cr>
+" autocmd BufRead,BufNewFile *_spec.rb setlocal errorformat=%f:%l\ %n\ %m
+autocmd BufRead,BufNewFile *_spec.rb compiler rspec
+nnoremap <leader>rl :silent! Dispatch -compiler=rspec -dir=<c-r>=getcwd()<cr> rspec %\:<c-r>=line(".")<cr><cr>
+nnoremap <leader>rf :silent! Dispatch -compiler=rspec -dir=<c-r>=getcwd()<cr> rspec %<cr>
+nnoremap <leader>rs :silent! Dispatch -compiler=rspec -dir=<c-r>=getcwd()<cr> rspec<cr>
 
 " ################
 " Filetype Stuff #
