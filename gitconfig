@@ -65,11 +65,11 @@
 [core]
   autocrlf = input
   excludesfile = ~/.gitignore_global
-[mergetool "mvimdiff"]
-  cmd = "mvimdiff -f $BASE $LOCAL $REMOTE $MERGED"
-  trustExitCode = true
-[difftool "mvimdiff"]
-  cmd = mvim -f -d \"$LOCAL\" \"$REMOTE\"
+; [mergetool "mvimdiff"]
+;   cmd = "mvimdiff -f $BASE $LOCAL $REMOTE $MERGED"
+;   trustExitCode = true
+; [difftool "mvimdiff"]
+;   cmd = mvim -f -d \"$LOCAL\" \"$REMOTE\"
 [status]
   branch = 1
   short = 1
