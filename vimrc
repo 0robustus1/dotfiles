@@ -284,6 +284,7 @@ au BufRead,BufNewFile *.muttrc set ft=muttrc
 au FileType clojure let b:delimitMate_quotes = "\""
 au FileType xml set formatprg=xmllint\ --format\ -
 au FileType json set formatprg=jq\ '.'
+au FileType eruby,html let b:delimitMate_autoclose=0
 " Crude solution for jekyll YAML-Frontmatter:
 " http://www.codeography.com/2010/02/20/making-vim-play-nice-with-jekylls-yaml-front-matter.html
 autocmd BufNewFile,BufRead index.slim,about.markdown,*/_drafts/*.markdown,*/_layouts/*.slim,*/_posts/*.markdown syntax match Comment /\%^---\_.\{-}---$/
