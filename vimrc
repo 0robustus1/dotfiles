@@ -81,7 +81,7 @@ Plugin 'chrisbra/csv.vim'
 " ###################
 "
 " Adds autoclosing of quotes, parenthesis, brackets and the like
-Plugin 'Raimondi/delimitMate'
+" Plugin 'Raimondi/delimitMate'
 " Navigate across the border of a tab into another tab when switching windows
 Plugin '0robustus1/vim-borderless'
 " Visually displays indentation inside files
@@ -158,6 +158,8 @@ Plugin 'Slava/vim-unite-files-ag'
 " The power of custom textobjects (e.g. w is a textobj)
 Plugin 'kana/vim-textobj-user'
 Plugin 'nelstrom/vim-textobj-rubyblock'
+" Like delimitMate but hopefully without problems and the annoyingness
+Plugin 'jiangmiao/auto-pairs'
 
 
 " Mixed-Plugins
