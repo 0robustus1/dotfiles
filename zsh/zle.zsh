@@ -49,3 +49,22 @@ function zsh-sudoify-last-or-current() {
 
 zle -N zsh-sudoify-last-or-current
 
+bind2maps emacs viins -- -s '^r' perform-history-action
+bindkey -M isearch "^r" history-incremental-pattern-search-backward
+bindkey -M isearch "^s" history-incremental-pattern-search-forward
+
+# # bind k and j for VI mode
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
+bindkey -M viins '^k' history-substring-search-up
+bindkey -M viins '^j' history-substring-search-down
+
+function perform-history-action() {
+  if (( ${#BUFFER} )); then
+    history-substring-search-up
+  else
+    history-incremental-pattern-search-backward
+  fi
+}
+
+zle -N perform-history-action
