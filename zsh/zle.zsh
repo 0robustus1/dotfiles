@@ -49,7 +49,8 @@ function zsh-sudoify-last-or-current() {
 
 zle -N zsh-sudoify-last-or-current
 
-bind2maps emacs viins -- -s '^r' perform-history-action
+bind2maps emacs viins -- -s '^r' perform-history-action-backward
+bind2maps emacs viins -- -s '^s' perform-history-action-forward
 bindkey -M isearch "^r" history-incremental-pattern-search-backward
 bindkey -M isearch "^s" history-incremental-pattern-search-forward
 
@@ -59,7 +60,7 @@ bindkey -M vicmd 'j' history-substring-search-down
 bindkey -M viins '^k' history-substring-search-up
 bindkey -M viins '^j' history-substring-search-down
 
-function perform-history-action() {
+function perform-history-action-backward() {
   if (( ${#BUFFER} )); then
     history-substring-search-up
   else
@@ -67,4 +68,13 @@ function perform-history-action() {
   fi
 }
 
-zle -N perform-history-action
+function perform-history-action-forward() {
+  if (( ${#BUFFER} )); then
+    history-substring-search-down
+  else
+    history-incremental-pattern-search-forward
+  fi
+}
+
+zle -N perform-history-action-backward
+zle -N perform-history-action-forward
