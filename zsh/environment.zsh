@@ -26,4 +26,4 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
 # probably needed for ruby 2.0 oauth
-export SSL_CERT_FILE=/usr/local/opt/curl-ca-bundle/share/ca-bundle.crt
+# export SSL_CERT_FILE=/usr/local/opt/curl-ca-bundle/share/ca-bundle.crt
