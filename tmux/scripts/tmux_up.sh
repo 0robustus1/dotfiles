@@ -1,92 +1,90 @@
-#!/bin/zsh
+#! /bin/zsh
+
 BASE_SESSION_NAME="home"
+
+session-exists() {
+  session_name="$1"
+  tmux has-session -t "${session_name}" &> /dev/null
+}
+
+window-exists() {
+  session_name="$1"
+  window_name="$2"
+  tmux list-windows -t "${session_name}" -F "#{window_name}" | grep -q "${window_name}"
+}
+
+# create new session with the corresponding
+# name and a window with the name "vimscope"
+# in detached mode (-d)
+create-session() {
+  session_name="$1"
+  default_window_name="$2"
+  tmux new-session -s "${session_name}" -n "${default_window_name}" -d
+}
+
+in-window() {
+  session_name="$1"
+  window_name="$2"
+  if (( $# > 0 )); then
+    if ! window-exists "${session_name}" "${window_name}"; then
+      tmux new-window -an "${window_name}" -t "${session_name}"
+    fi
+  fi
+  if (( $# > 2 )); then
+    rest="$@[3, -1]"
+    echo "${session_name}:${window_name}" ${rest} | xargs tmux send-keys -t
+  fi
+}
+
+link-window() {
+  source_session_name="$1"
+  source_window_name="$2"
+  target_session_name="$3"
+  target_window_name="$4"
+  in-window "${source_session_name}" "${source_window_name}"
+  in-window "${target_session_name}" "${target_window_name}"
+  tmux link-window -k -s "${source_session_name}:${source_window_name}" -t "${target_session_name}:${target_window_name}"
+}
+
+change-directory-in-window() {
+  session_name="$1"
+  window_name="$2"
+  target_directory="$3"
+  in-window "${session_name}" "${window_name}" cd SPACE "${target_directory}" ENTER
+  in-window "${session_name}" "${window_name}" clear ENTER
+}
+
 SESSIONNAME="home"
+if ! session-exists "${SESSIONNAME}"; then
+  create-session "${SESSIONNAME}" mutt
 
-tmux has-session -t $SESSIONNAME &> /dev/null
-
-# Assure that there is no session with that
-# name running already.
-if [[ $? != 0 ]]; then
-  # create new session with the corresponding
-  # name and a window with the name "vimscope"
-  # in detached mode (-d)
-  tmux new-session -s $SESSIONNAME -n mutt -d
   # start mutt in the first window
-  tmux send-keys -t ${SESSIONNAME}:mutt mutt ENTER
+  in-window "${SESSIONNAME}" mutt mutt ENTER
 
-  # create new home window
-  tmux new-window -n home
+  in-window "${SESSIONNAME}" home
 
-  # create new home windows
-  tmux new-window -n projects
-  tmux send-keys -t ${SESSIONNAME}:projects cd SPACE ~/projects ENTER
-  tmux send-keys -t ${SESSIONNAME}:projects clear ENTER
-  tmux new-window -n projects-support
-  tmux send-keys -t ${SESSIONNAME}:projects-support cd SPACE ~/projects ENTER
-  tmux send-keys -t ${SESSIONNAME}:projects-support clear ENTER
-  tmux new-window -n server-connection
+  change-directory-in-window "${SESSIONNAME}" projects ~/projects
+  change-directory-in-window "${SESSIONNAME}" projects-support ~/projects
+
+  in-window "${SESSIONNAME}" server-connection
 fi
 
 SESSIONNAME="work"
+if ! session-exists "${SESSIONNAME}"; then
+  create-session "${SESSIONNAME}" mutt
+  link-window "${BASE_SESSION_NAME}" mutt "${SESSIONNAME}" mutt
 
-tmux has-session -t $SESSIONNAME &> /dev/null
-
-# Assure that there is no session with that
-# name running already.
-if [[ $? != 0 ]]; then
-  # create new session with the corresponding
-  # name and a window with the name "vimscope"
-  # in detached mode (-d)
-  tmux new-session -s $SESSIONNAME -n mutt -d
-  # Link the mutt-window from home to this first window
-  tmux link-window -k -s ${BASE_SESSION_NAME}:mutt -t ${SESSIONNAME}:mutt
-
-  # create new home window
-  tmux new-window -n home
-
-  # create new ontohub windows
-  tmux new-window -n ontohub_main
-  tmux send-keys -t ${SESSIONNAME}:ontohub_main cd SPACE ~/uni/ontospace/ontohub ENTER
-  tmux send-keys -t ${SESSIONNAME}:ontohub_main clear ENTER
-  tmux new-window -n ontohub_support
-  tmux send-keys -t ${SESSIONNAME}:ontohub_support cd SPACE ~/uni/ontospace/ontohub ENTER
-  tmux send-keys -t ${SESSIONNAME}:ontohub_support clear ENTER
+  in-window "${SESSIONNAME}" home
 fi
 
 SESSIONNAME="uni"
+if ! session-exists "${SESSIONNAME}"; then
+  create-session "${SESSIONNAME}" mutt
+  link-window "${BASE_SESSION_NAME}" mutt "${SESSIONNAME}" mutt
 
-tmux has-session -t $SESSIONNAME &> /dev/null
+  in-window "${SESSIONNAME}" home
 
-# Assure that there is no session with that
-# name running already.
-if [[ $? != 0 ]]; then
-  # create new session with the corresponding
-  # name and a window with the name "vimscope"
-  # in detached mode (-d)
-  tmux new-session -s $SESSIONNAME -n mutt -d
-  # Link the mutt-window from home to this first window
-  tmux link-window -k -s ${BASE_SESSION_NAME}:mutt -t ${SESSIONNAME}:mutt
-
-  # create new home window
-  tmux new-window -n home
-
-  # create new uni windows
-  tmux new-window -n uni
-  tmux send-keys -t ${SESSIONNAME}:uni cd SPACE ~/uni ENTER
-  tmux send-keys -t ${SESSIONNAME}:uni clear ENTER
-  tmux new-window -n stuga
-  tmux send-keys -t ${SESSIONNAME}:stuga cd SPACE ~/uni/stuga ENTER
-  tmux send-keys -t ${SESSIONNAME}:stuga clear ENTER
+  change-directory-in-window "${SESSIONNAME}" uni ~/uni
+  change-directory-in-window "${SESSIONNAME}" stuga ~/uni/stuga
+  change-directory-in-window "${SESSIONNAME}" fbmi ~/uni/fbmi
 fi
-
-# allow tmux copy-mechanism to be mirrored to mac os x clipboard
-# ps -e | grep -qP "tmux_copy.sh$"
-# if [[ $? != 0 ]]; then
-#   nohup ~/srv/dotfiles/tmux/scripts/tmux_copy.sh 2>&1 > /dev/null &!
-# fi
-
-# # I handle attachment in my terminal config
-# attach only if not attached already
-# if [[ -z $TMUX ]]; then
-#   tmux attach -t $SESSIONNAME
-# fi
