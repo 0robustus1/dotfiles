@@ -27,7 +27,7 @@ in-window() {
   window_name="$2"
   if (( $# > 0 )); then
     if ! window-exists "${session_name}" "${window_name}"; then
-      tmux new-window -an "${window_name}" -t "${session_name}"
+      tmux new-window -an "${window_name}" -t "${session_name}:$"
     fi
   fi
   if (( $# > 2 )); then
@@ -35,6 +35,8 @@ in-window() {
     echo "${session_name}:${window_name}" ${rest} | xargs tmux send-keys -t
   fi
 }
+
+alias ensure-window-existence="in-window"
 
 link-window() {
   source_session_name="$1"
@@ -54,37 +56,43 @@ change-directory-in-window() {
   in-window "${session_name}" "${window_name}" clear ENTER
 }
 
+alias session-exists-here="session-exists ${SESSIONNAME}"
+alias window-exists-here="window-exists ${SESSIONNAME}"
+alias create-session-here="create-session ${SESSIONNAME}"
+alias in-window-here="in-window ${SESSIONNAME}"
+alias change-directory-in-window-here="change-directory-in-window ${SESSIONNAME}"
+alias ensure-window-existence-here="ensure-window-existence ${SESSIONNAME}"
+
 SESSIONNAME="home"
-if ! session-exists "${SESSIONNAME}"; then
-  create-session "${SESSIONNAME}" mutt
+if ! session-exists-here; then
+  create-session-here mutt
 
-  # start mutt in the first window
-  in-window "${SESSIONNAME}" mutt mutt ENTER
+  in-window-here mutt mutt ENTER
 
-  in-window "${SESSIONNAME}" home
+  ensure-window-existence-here home
 
-  change-directory-in-window "${SESSIONNAME}" projects ~/projects
-  change-directory-in-window "${SESSIONNAME}" projects-support ~/projects
+  change-directory-in-window-here projects ~/projects
+  change-directory-in-window-here projects-support ~/projects
 
-  in-window "${SESSIONNAME}" server-connection
+  ensure-window-existence-here server-connection
 fi
 
 SESSIONNAME="work"
-if ! session-exists "${SESSIONNAME}"; then
-  create-session "${SESSIONNAME}" mutt
+if ! session-exists-here; then
+  create-session-here mutt
   link-window "${BASE_SESSION_NAME}" mutt "${SESSIONNAME}" mutt
 
-  in-window "${SESSIONNAME}" home
+  in-window-here home
 fi
 
 SESSIONNAME="uni"
-if ! session-exists "${SESSIONNAME}"; then
-  create-session "${SESSIONNAME}" mutt
+if ! session-exists-here; then
+  create-session-here mutt
   link-window "${BASE_SESSION_NAME}" mutt "${SESSIONNAME}" mutt
 
-  in-window "${SESSIONNAME}" home
+  ensure-window-existence-here home
 
-  change-directory-in-window "${SESSIONNAME}" uni ~/uni
-  change-directory-in-window "${SESSIONNAME}" stuga ~/uni/stuga
-  change-directory-in-window "${SESSIONNAME}" fbmi ~/uni/fbmi
+  change-directory-in-window-here uni ~/uni
+  change-directory-in-window-here stuga ~/uni/stuga
+  change-directory-in-window-here fbmi ~/uni/fbmi
 fi
