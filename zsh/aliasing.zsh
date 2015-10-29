@@ -40,3 +40,4 @@ alias root-the-htop='sudo chmod u+s /usr/local/opt/htop-osx/bin/htop && sudo cho
 alias gn='git number --column -- --no-short'
 alias gna='git number add'
 alias brew-up='brew update; sudo chown $(whoami):admin /usr/local && sudo chown -R $(whoami):admin /usr/local'
+alias set-osx-hostname='sudo scutil --set HostName'
