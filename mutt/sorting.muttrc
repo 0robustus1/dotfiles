@@ -1,0 +1,15 @@
+set my_default_sort=score
+
+# Default Settings #
+# ################ #
+
+set sort="$my_default_sort"
+set sort_aux = reverse-last-date-received
+set sort_re
+
+# Overrides #
+# ######### #
+
+folder-hook . set sort="$my_default_sort"
+
+# folder-hook INBOX.somewhere set sort=threads

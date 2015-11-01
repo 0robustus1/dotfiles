@@ -148,12 +148,11 @@ source ~/.mutt/configs/robustus-theme.muttrc
 # Sorting/Ordering #
 ####################
 
+# Used for scoring based sorting. Scoring can also be used with other commands.
 source ~/.mutt/scoring.muttrc
-# set sort = reverse-threads # like gmail
-set sort=score
-set sort_aux = reverse-date-received
-# set sort_aux = last-date-received # like gmail
-set sort_re # thread based on regex
+
+# Actual sort mechanisms
+source ~/.mutt/sorting.muttrc
 
 # Mac OS X Addressbook Autocompletion #
 #######################################
