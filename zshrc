@@ -124,4 +124,5 @@ zstyle ':completion:*' list-colors 'rs=0:di=96;36:ln=01;36:pi=40;33:so=01;35:do=
 # tmux #
 ########
 # must be last line of zshrc
+TMUX_VERBOSE_CREATION=1
 source ~/srv/dotfiles/tmux/scripts/tmux_up.sh
