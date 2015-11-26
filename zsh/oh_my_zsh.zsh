@@ -11,6 +11,7 @@ plugins=(
   gem
   git-extras
   lein
+  mix-fast
   mvn
   npm
   osx
