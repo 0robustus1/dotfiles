@@ -55,7 +55,7 @@
 ; use DD3412FD for tredd@informatik.uni-bremen.de
   signingkey = 8C402438
 [init]
-  templatedir = ~/.gitconfs/template_symlinks
+  ; templatedir = ~/.gitconfs/template_symlinks
 [merge]
   defaultToUpstream = true
   tool = vimdiff
