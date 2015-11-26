@@ -8,7 +8,7 @@ source ~/.zsh/environment.zsh
 
 autoload -U colors && colors
 
-fpath=(~/.zsh/completion ~/.zsh/own_scripts ~/.zsh/scripts $fpath)
+fpath=(/usr/local/share/zsh/site-functions ~/.zsh/completion ~/.zsh/own_scripts ~/.zsh/scripts $fpath)
 GREP_OPTIONS=--color=always
 HISTFILE=~/.histfile
 HISTSIZE=9000000
