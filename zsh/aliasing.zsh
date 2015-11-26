@@ -41,3 +41,5 @@ alias gn='git number --column -- --no-short'
 alias gna='git number add'
 alias brew-up='brew update; sudo chown $(whoami):admin /usr/local && sudo chown -R $(whoami):admin /usr/local'
 alias set-osx-hostname='sudo scutil --set HostName'
+alias env-bare='env | gsed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g"'
+alias tmux-kill-all-sessions="tmux kill-session -a; tmux list-sessions | cut -d ':' -f1 | xargs tmux kill-session -t"
