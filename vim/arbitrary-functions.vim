@@ -56,3 +56,10 @@ function! ToggleCursorColumn()
     set cursorcolumn
   end
 endfunction
+
+function! HardcoreWrite()
+  execute '! mkdir -p %:h'
+  execute 'write'
+endfunction
+
+command! -register HardcoreWrite silent! call HardcoreWrite() | redraw!
