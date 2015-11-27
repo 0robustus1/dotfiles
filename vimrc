@@ -160,6 +160,8 @@ Plugin 'kana/vim-textobj-user'
 Plugin 'nelstrom/vim-textobj-rubyblock'
 " Like delimitMate but hopefully without problems and the annoyingness
 Plugin 'jiangmiao/auto-pairs'
+" Like magit (emacs) but for vim
+Plugin 'jreybert/vimagit'
 
 
 " Mixed-Plugins
@@ -616,3 +618,5 @@ augroup gzip
   autocmd FileAppendPost   *.gz !mv <afile> <afile>:r
   autocmd FileAppendPost   *.gz !gzip <afile>:r
 augroup END
+
+let g:magit_show_help = 0
