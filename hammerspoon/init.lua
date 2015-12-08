@@ -21,6 +21,8 @@ grid.GRIDHEIGHT = 12
 grid.MARGINX    = 0
 grid.MARGINY    = 0
 
+-- Focus the first window in the ordered list of windows that is not the
+-- currently focused window and can actually be successfully focused.
 local function focus_first_valid_window(ordered_wins)
   for _, win in pairs(ordered_wins) do
     win:focus()
@@ -29,6 +31,9 @@ local function focus_first_valid_window(ordered_wins)
   return false
 end
 
+-- determines the next and previous windows in all windows of the current
+-- application.  After that it first tries to select the first valid of the
+-- 'next' windows and if that fails the first valid of the 'previous' windows.
 local function focusnextwindow()
   local app_windows = application.allWindows(window.focusedWindow():application())
   local current_id = window.focusedWindow():id()
@@ -50,32 +55,45 @@ local function decreaseVolume(by)
   increaseVolume(by * -1)
 end
 
-local function applyOne(func, arg)
-  return function() func(arg) end
+-- promise to call function with provided arguments when realized
+local function promise(func, ...)
+  local args={...}
+  return function() func(table.unpack(args)) end
 end
 
+-- promise to call function on the then focused window
+local function onFocused(func)
+  return function() func(window.focusedWindow()) end
+end
+
+-- Reload hammerspoon config
+hotkey.bind({"cmd", "shift"}, "R", hs.reload)
+
+-- Focus the next window of the current application
 hotkey.bind({"ctrl"}, "tab", focusnextwindow)
 
 -- Maximize and Minimize the current window
 hotkey.bind(hits, 'M', grid.maximizeWindow)
-hotkey.bind(hit, 'M', function() window.focusedWindow():minimize() end)
+hotkey.bind(hit, 'M', onFocused(window.minimize))
 
 -- Spotify interaction
 hotkey.bind(hits, 'space', spotify.playpause)
 hotkey.bind(hits, 'L', spotify.next)
 hotkey.bind(hits, 'H', spotify.previous)
 -- general audio interaction
-hotkey.bind(hits, 'K', applyOne(increaseVolume, 5))
-hotkey.bind(hits, 'J', applyOne(decreaseVolume, 5))
+hotkey.bind(hits, 'K', promise(increaseVolume, 5))
+hotkey.bind(hits, 'J', promise(decreaseVolume, 5))
 
 -- Focusing other windows
-hotkey.bind(hit, 'left',  function() window.focusedWindow():focuswindowWest() end)
-hotkey.bind(hit, 'right', function() window.focusedWindow():focuswindowEast() end)
-hotkey.bind(hit, 'up',    function() window.focusedWindow():focuswindowNorth() end)
-hotkey.bind(hit, 'down',  function() window.focusedWindow():focuswindowSouth() end)
+hotkey.bind(hit, 'left',  onFocused(window.focusWindowWest))
+hotkey.bind(hit, 'right', onFocused(window.focusWindowEast))
+hotkey.bind(hit, 'up',    onFocused(window.focusWindowNorth))
+hotkey.bind(hit, 'down',  onFocused(window.focusWindowSouth))
 
-hotkey.bind(hits, 'right', function() window.focusedWindow():moveOneScreenEast() end)
-hotkey.bind(hits, 'left', function() window.focusedWindow():moveOneScreenWest() end)
+-- Move current window to next/previous screen
+hotkey.bind(hits, 'right', onFocused(window.moveOneScreenEast))
+hotkey.bind(hits, 'left', onFocused(window.moveOneScreenWest))
 
+-- Startup notification stuff
 default_sound:play()
 alert.show("Mjolnir now rests safely in your hand", 3)
