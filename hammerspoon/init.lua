@@ -76,6 +76,9 @@ hotkey.bind({"ctrl"}, "tab", focusnextwindow)
 hotkey.bind(hits, 'M', grid.maximizeWindow)
 hotkey.bind(hit, 'M', onFocused(window.minimize))
 
+-- spawn or focus applications
+hotkey.bind(hits, "T", promise(application.launchOrFocus, "iTerm"))
+
 -- Spotify interaction
 hotkey.bind(hits, 'space', spotify.playpause)
 hotkey.bind(hits, 'L', spotify.next)
