@@ -162,6 +162,11 @@ Plugin 'nelstrom/vim-textobj-rubyblock'
 Plugin 'jiangmiao/auto-pairs'
 " Like magit (emacs) but for vim
 Plugin 'jreybert/vimagit'
+" Dependency of vim-lua-ftplugin. Contains plugin independent vimscript
+" framework
+Plugin 'xolox/vim-misc'
+" Some nice lua checking and documentation things
+Plugin 'xolox/vim-lua-ftplugin'
 
 
 " Mixed-Plugins
