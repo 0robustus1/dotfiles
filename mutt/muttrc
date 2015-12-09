@@ -1,6 +1,5 @@
 # Paths ----------------------------------------------
 set folder="~/.muttmail"
-set alias_file       = ~/.mutt/alias         # where to store aliases
 set header_cache     = ~/.mutt/cache/headers # where to store headers
 set message_cachedir = ~/.mutt/cache/bodies  # where to store bodies
 set certificate_file = ~/.mutt/certificates  # where to store certs
@@ -31,6 +30,14 @@ set edit_headers=yes     # Full Header control
 set ssl_verify_host = no
 set ssl_verify_dates = no
 
+# Alias File #
+##############
+
+set alias_file = ~/.mutt/alias
+# set sort_alias= alias
+set sort_alias= unsorted # keep order from file
+set reverse_alias=yes
+source $alias_file
 
 # Sidebar Patch #
 #################
@@ -157,9 +164,9 @@ source ~/.mutt/sorting.muttrc
 # Mac OS X Addressbook Autocompletion #
 #######################################
 
-set query_command = "contacts -Sf '%eTOKEN%n' '%s' | sed -e 's/TOKEN/\t/g'"
-bind editor <Tab> complete-query
-bind editor ^T    complete
+# set query_command = "contacts -Sf '%eTOKEN%n' '%s' | sed -e 's/TOKEN/\t/g'"
+# bind editor <Tab> complete-query
+# bind editor ^T    complete
 
 #####################
 # Message Filtering #
