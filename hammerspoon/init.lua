@@ -66,6 +66,16 @@ local function onFocused(func)
   return function() func(window.focusedWindow()) end
 end
 
+local function moveToNextScreen(win)
+  win = win or window.focusedWindow()
+  win:moveToScreen(win:screen():next())
+end
+
+local function moveToPreviousScreen(win)
+  win = win or window.focusedWindow()
+  win:moveToScreen(win:screen():previous())
+end
+
 -- Reload hammerspoon config
 hotkey.bind({"cmd", "shift"}, "R", hs.reload)
 
@@ -94,8 +104,10 @@ hotkey.bind(hit, 'up',    onFocused(window.focusWindowNorth))
 hotkey.bind(hit, 'down',  onFocused(window.focusWindowSouth))
 
 -- Move current window to next/previous screen
-hotkey.bind(hits, 'right', onFocused(window.moveOneScreenEast))
-hotkey.bind(hits, 'left', onFocused(window.moveOneScreenWest))
+-- hotkey.bind(hits, 'right', onFocused(window.moveOneScreenEast))
+-- hotkey.bind(hits, 'left', onFocused(window.moveOneScreenWest))
+hotkey.bind(hits, 'right', moveToNextScreen)
+hotkey.bind(hits, 'left', moveToPreviousScreen)
 
 -- Startup notification stuff
 default_sound:play()
