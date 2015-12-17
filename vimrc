@@ -167,6 +167,9 @@ Plugin 'jreybert/vimagit'
 Plugin 'xolox/vim-misc'
 " Some nice lua checking and documentation things
 Plugin 'xolox/vim-lua-ftplugin'
+" Writing html in a more elegant way.
+" This is kind of like a vim-DSL for html
+Plugin 'mattn/emmet-vim'
 
 
 " Mixed-Plugins
