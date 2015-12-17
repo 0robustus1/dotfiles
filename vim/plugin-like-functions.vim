@@ -45,7 +45,7 @@ endfunction
 
 " german umlauts, technically not abbreviations
 let g:umlaut_mappings = [ ['"a', 'ä'], ['"o', 'ö'], ['"u', 'ü'], ['"A', 'Ä'], ['"O', 'Ö'], ['"U', 'Ü'] ]
-let g:file_types = ['mkd', 'tex', 'text', 'mail', 'gitcommit']
+let g:file_types = ['mkd', 'tex', 'text', 'mail', 'gitcommit', 'mkd.markdown']
 
 call ImplementUmlauts()
 
