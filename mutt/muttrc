@@ -86,6 +86,10 @@ bind index R        group-reply
 bind index <tab>    sync-mailbox
 bind index <space>  collapse-thread
 
+# Handling 'new' messages/folders -----------------------
+set folder_format="%2C %t %N %d %f %> %-8.8u %-8.8g"
+bind index \Cl buffy-list
+bind editor \Cc buffy-cycle
 # Ctrl-R to mark all as read
 macro index \Cr "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
 
