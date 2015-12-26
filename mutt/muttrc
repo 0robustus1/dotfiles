@@ -70,7 +70,7 @@ alternates robustus@rightsrestricted.com robustus@rightsrestricted.de
 source ~/.mutt/mailboxes.muttrc
 
 # Index View Options ---------------------------------
-set date_format = "%m/%d"
+set date_format = "!%F (a %A), at %k:%M:%S (in UTC%z)"
 # set index_format = "[%Z]  %D  %-20.20F  %s"
 set uncollapse_jump                     # don't collapse on an unread message
 unset collapse_unread
@@ -221,7 +221,7 @@ set index_format="[%3N][%Z] %(%b %D %H:%M) %-22.22F|%?M?%03M&   ?| %s %> %y"
 ##########################
 
 set forward_format="Fwd: %s"
-set attribution="\nOn %d, %n wrote:"
+set attribution="\n%n wrote on %d something like this:"
 
 # Signatures #
 ##############
