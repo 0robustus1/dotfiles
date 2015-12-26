@@ -1,0 +1,49 @@
+#! /bin/bash
+
+security_binary="/usr/bin/security"
+
+set_password() {
+  name="$1"
+  username="$2"
+  password="$3"
+  "${security_binary}" add-generic-password\
+    -s "${name}" -a "${username}" -w "${password}" -U
+}
+
+get_password() {
+  name="$1"
+  username="$2"
+  "${security_binary}" find-generic-password\
+    -s "${name}" -a "${username}" -g 2>&1 | grep "password: " |\
+    awk '{
+      gsub("^\"|\"$", "", $2)
+      print $2
+    }'
+}
+
+keyring_command="$1"
+name="$2"
+username="$3"
+password="$4"
+
+case "${keyring_command}" in
+  "get")
+    get_password "${name}" "${username}"
+    ;;
+  "set")
+    set_password "${name}" "${username}" "${password}"
+    ;;
+  "get-email")
+    username="$2"
+    get_password "email:${username}" "${username}"
+    ;;
+  "set-email")
+    username="$2"
+    password="$3"
+    set_password "email:${username}" "${username}" "${password}"
+    ;;
+  *)
+    2>&1 echo "Unknown command <${keyring_command}>"
+    exit 2
+    ;;
+esac
