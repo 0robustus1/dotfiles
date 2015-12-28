@@ -133,7 +133,7 @@ macro pager \Cu "|urlview<enter>" "call urlview to open links"
 bind index <f11> sort-mailbox
 bind index <f10> sort-reverse
 bind index n previous-new-then-unread
-bind index N next-unread-mailbox
+macro index N "<change-folder>?<tab>"
 bind index \Cn toggle-new
 # macro index  <f1> "<limit>~d <7d<enter>" "show messages from last seven days"
 # macro index  <esc><f1> "<limit>all<enter>" "undo limiting"
