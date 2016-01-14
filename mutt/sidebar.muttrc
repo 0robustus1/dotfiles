@@ -17,6 +17,7 @@ color sidebar_new color221 color233
 bind index,pager \cj   sidebar-next
 bind index,pager \ck     sidebar-prev
 bind index,pager \Ce  sidebar-open
+# macro index,pager \Ce '<enter-command>exec sidebar-open<enter><enter-command>push \011<enter>'
 
 macro index,pager <right> '<enter-command>toggle sidebar_visible<enter>'
 macro index,pager <left> '<enter-command>toggle sidebar_visible<enter>'

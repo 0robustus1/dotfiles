@@ -42,7 +42,7 @@ source $alias_file
 # Sidebar Patch #
 #################
 
-source ~/.mutt/sidebar.muttrc
+# source ~/.mutt/sidebar.muttrc
 
 # Status Bar -----------------------------------------
 # set status_chars  = " *%A"
