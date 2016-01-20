@@ -45,3 +45,4 @@ alias brew-fix='sudo chown $(whoami):admin /usr/local && sudo chown -R $(whoami)
 alias set-osx-hostname='sudo scutil --set HostName'
 alias env-bare='env | gsed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g"'
 alias tmux-kill-all-sessions="tmux kill-session -a; tmux list-sessions | cut -d ':' -f1 | xargs tmux kill-session -t"
+alias ssl-generate-csr="openssl req -nodes -new -newkey rsa:2048 -sha256 -out csr.pem"
