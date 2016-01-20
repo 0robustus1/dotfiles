@@ -94,7 +94,7 @@ bind editor \Cc buffy-cycle
 macro index \Cr "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
 
 # Sync email
-macro index O "<shell-escape>offlineimap<enter>"           "run offlineimap to sync all mail"
+macro index O "<sync-mailbox><shell-escape>~/.mutt/update-maildirs.sh<enter>" "run offlineimap to sync all mail"
 
 # Saner copy/move dialogs
 macro index C "<copy-message>?<toggle-mailboxes>" "copy a message to a mailbox"

@@ -19,6 +19,7 @@ if [[ -z "${ABSOLUTE_PATH}" ]]; then
 fi
 
 directory="$1"
+account="$1"
 replacement="$2"
 
 folder-hook-target() {
@@ -33,5 +34,6 @@ folder-hook-target() {
 for folder in $(ls -1p ${MAIL_BASE_DIR}/${directory}/ | ggrep -oP ".+(?=/)"); do
   full_path="$(folder-hook-target $folder)"
   target="$(echo ${full_path} | sed 's/\//\\\//g')"
-  echo "folder-hook \"${target}\" 'macro index o \"<shell-escape>offlineimap -qf ${folder} -a ${replacement}<enter>\"'"
+  box_path="$(echo ${folder} | sed 's/\./\//g')"
+  echo "folder-hook \"${target}\" 'macro index o \"<sync-mailbox><shell-escape>~/.mutt/update-maildirs.sh ${account}:${box_path}<enter>\"'"
 done
