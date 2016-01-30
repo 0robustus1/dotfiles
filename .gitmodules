@@ -1,9 +1,9 @@
 [submodule "zsh/repos/oh-my-zsh"]
 	path = zsh/repos/oh-my-zsh
 	url = https://github.com/0robustus1/oh-my-zsh.git
-[submodule "vim/bundle/vundle"]
-	path = vim/bundle/vundle
-	url = https://github.com/gmarik/vundle.git
 [submodule "repos/mutt-notmuch-py"]
 	path = repos/mutt-notmuch-py
 	url = https://github.com/honza/mutt-notmuch-py.git
+[submodule "vim/bundle/Vundle.vim"]
+	path = vim/bundle/Vundle.vim
+	url = https://github.com/VundleVim/Vundle.vim.git

@@ -17,7 +17,7 @@ set nocompatible
 " ################
 
 filetype off
-set rtp+=~/.vim/bundle/vundle
+set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 
@@ -26,7 +26,7 @@ call vundle#begin()
 " #########
 
 " the base plugin, used to manage others
-Plugin 'gmarik/vundle'
+Plugin 'VundleVim/Vundle.vim'
 
 " Unused #
 " ########
