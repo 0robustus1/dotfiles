@@ -12,8 +12,11 @@ local sound       = require "hs.sound"
 local default_sound  = sound.getByName("Hero") -- More sounds in /System/Library/Sounds
 
 -- Set up hotkey combinations
-local hit = {"cmd", "ctrl"}
-local hits = {"cmd", "ctrl", "shift"}
+-- local hit = {"cmd", "ctrl"}
+-- local hits = {"cmd", "ctrl", "shift"}
+local current = {"ctrl", "alt"}
+local global = {"ctrl", "shift"}
+local universe = {"cmd", "ctrl", "shift"}
 
 -- Set grid size.
 grid.GRIDWIDTH  = 12
@@ -77,38 +80,46 @@ local function moveToPreviousScreen(win)
 end
 
 -- Reload hammerspoon config
-hotkey.bind({"cmd", "shift"}, "R", hs.reload)
+hotkey.bind(universe, "R", hs.reload)
 
+-- Operations on current scope --
+-- --------------------------- --
+--
 -- Focus the next window of the current application
-hotkey.bind({"ctrl"}, "tab", focusnextwindow)
-
+hotkey.bind(current, "tab", focusnextwindow)
 -- Maximize and Minimize the current window
-hotkey.bind(hits, 'M', grid.maximizeWindow)
-hotkey.bind(hit, 'M', onFocused(window.minimize))
-
--- spawn or focus applications
-hotkey.bind(hits, "T", promise(application.launchOrFocus, "iTerm"))
-
--- Spotify interaction
-hotkey.bind(hits, 'space', spotify.playpause)
-hotkey.bind(hits, 'L', spotify.next)
-hotkey.bind(hits, 'H', spotify.previous)
--- general audio interaction
-hotkey.bind(hits, 'K', promise(increaseVolume, 5))
-hotkey.bind(hits, 'J', promise(decreaseVolume, 5))
-
+hotkey.bind(current, '=', grid.maximizeWindow)
+hotkey.bind(current, '-', onFocused(window.minimize))
+-- Move window to other screens
+hotkey.bind(current, 'right', moveToNextScreen)
+hotkey.bind(current, 'left', moveToPreviousScreen)
+-- Operations on the global context of this screen --
+-- ----------------------------------------------- --
+--
 -- Focusing other windows
-hotkey.bind(hit, 'left',  onFocused(window.focusWindowWest))
-hotkey.bind(hit, 'right', onFocused(window.focusWindowEast))
-hotkey.bind(hit, 'up',    onFocused(window.focusWindowNorth))
-hotkey.bind(hit, 'down',  onFocused(window.focusWindowSouth))
+hotkey.bind(global, 'left',  onFocused(window.focusWindowWest))
+hotkey.bind(global, 'right', onFocused(window.focusWindowEast))
+hotkey.bind(global, 'up',    onFocused(window.focusWindowNorth))
+hotkey.bind(global, 'down',  onFocused(window.focusWindowSouth))
 
--- Move current window to next/previous screen
--- hotkey.bind(hits, 'right', onFocused(window.moveOneScreenEast))
--- hotkey.bind(hits, 'left', onFocused(window.moveOneScreenWest))
-hotkey.bind(hits, 'right', moveToNextScreen)
-hotkey.bind(hits, 'left', moveToPreviousScreen)
+-- Operations on universe (mainly other applications) --
+-- -------------------------------------------------- --
+--
+-- spawn or focus applications
+hotkey.bind(universe, "T", promise(application.launchOrFocus, "iTerm"))
+hotkey.bind(universe, "C", promise(application.launchOrFocus, "Chromium"))
+hotkey.bind(universe, "S", promise(application.launchOrFocus, "Spotify"))
+-- Spotify interaction
+hotkey.bind(universe, 'space', spotify.playpause)
+hotkey.bind(universe, 'L', spotify.next)
+hotkey.bind(universe, 'H', spotify.previous)
+-- general audio interaction
+hotkey.bind(universe, 'K', promise(increaseVolume, 5))
+hotkey.bind(universe, 'J', promise(decreaseVolume, 5))
 
--- Startup notification stuff
+
+-- Startup notification stuff --
+-- -------------------------- --
+--
 default_sound:play()
 alert.show("Mjolnir now rests safely in your hand", 3)
